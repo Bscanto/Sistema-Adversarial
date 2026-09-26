@@ -76,7 +76,7 @@ graph TD
 
 ---
 
-**## 2. Modelo Estratégico Estático**
+## 2. Modelo Estratégico Estático
 
 ### 2.1 Decisão central e jogadores
 
