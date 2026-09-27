@@ -253,31 +253,6 @@ flowchart LR
 ```
 ---
 
-## 4. Ameaças e Riscos
-
-## 5. Declaração de Uso de IA Generativa
-
-O uso de IA generativa como apoio à implementação está declarado conforme a seção 6 do enunciado. Todas as escolhas de projeto documentadas aqui foram tomadas pelo grupo com base nas aulas apresentadas, e qualquer integrante pode explicar e justificar cada decisão de projeto.
-
-As principais contribuições do agente foram:
-
--
--
--
-- Correção gramatical e de estilo do README.md
-
-## 6. Referências
-
-Ver [`fontes/referencias.md`](fontes/referencias.md).
-
-### Nota sobre os diagramas
-
-Os arquivos-fonte editáveis (`.mmd`) estão em `diagramas/`. Para gerar os `.png` exigidos na estrutura de entrega, foi usado:
-
-- [Mermaid Live Editor](https://mermaid.live)
-
-Os diagramas também estão embutidos como blocos `mermaid` diretamente neste README, renderizados automaticamente pelo GitHub.
-
 **## 4. Ameaças e Riscos**
 
 
