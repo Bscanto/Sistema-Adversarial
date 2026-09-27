@@ -176,10 +176,81 @@ Dessa forma, a situação pode ser analisada como um jogo estratégico em que as
 
 ---
 
-**## 3. Modelo Estratégico Dinâmico**
+## 3. Modelo Estratégico Dinâmico
 
-> *Seção reservada para a modelagem da interação em múltiplas rodadas, considerando que os jogadores observam resultados anteriores e podem adaptar suas estratégias.*
+O modelo estático representa uma decisão em um único momento. No entanto, no sistema analisado, Fraudador e Sistema Antifraude podem observar resultados anteriores e adaptar suas estratégias ao longo de novas tentativas.
 
+Esse comportamento é compatível com jogos entre atacante e defensor em múltiplos períodos, nos quais decisões anteriores podem influenciar ações posteriores (HAUSKEN; WELBURN; ZHUANG, 2024).
+
+No sistema proposto, o objetivo do Fraudador permanece o mesmo: reutilizar o cupom `PRIMEIRACOMPRA10`. O que muda é a estratégia utilizada para tentar contornar os controles.
+
+A interação segue o ciclo:
+
+**ação → resposta → observação → adaptação**
+
+### 3.1 Rodadas adversariais
+
+| Rodada | Ação do Fraudador | Resposta do Sistema | O que se torna observável? | Adaptação seguinte |
+|---|---|---|---|---|
+| **1** | Cria uma nova conta e tenta reutilizar o cupom | O sistema consulta o histórico e recusa o benefício | Apenas criar outra conta pode não ser suficiente | O Fraudador altera outros dados da tentativa |
+| **2** | Utiliza novos dados, IP ou dispositivo | O sistema cruza múltiplos sinais | A validação utiliza mais de um identificador | O Fraudador passa a alterar vários elementos |
+| **3** | Combina diferentes identidades e sinais | O sistema identifica padrões e aplica controles adicionais | O sistema também utiliza o histórico das tentativas | O Fraudador procura outra forma de contornar a defesa |
+
+A criação de múltiplas contas para obter repetidamente um benefício é um exemplo de abuso de lógica de negócio. A OWASP recomenda que sistemas de promoções não dependam de um único identificador e considerem diferentes sinais, como dispositivo, endereço IP, telefone e meio de pagamento (OWASP FOUNDATION, 2026).
+
+### 3.2 Quem observa quem?
+
+A observação ocorre nos dois sentidos. O Fraudador observa respostas como aceitação, rejeição ou bloqueio. O Sistema Antifraude observa cadastros, tentativas de resgate, histórico de utilização e padrões de comportamento.
+
+### 3.3 O que cada lado consegue modificar?
+
+O Fraudador pode alterar conta, e-mail, telefone, CPF, dispositivo, endereço IP ou meio de pagamento.
+
+O Sistema Antifraude pode alterar regras de validação, limites de tentativas e quantidade de sinais analisados.
+
+### 3.4 O que dispara uma adaptação?
+
+Para o Fraudador, a adaptação ocorre quando uma tentativa é rejeitada ou quando a resposta indica que determinada estratégia deixou de funcionar.
+
+Para o Sistema Antifraude, a adaptação ocorre quando surgem novos padrões de abuso ou quando os controles existentes deixam de ser suficientes.
+
+### 3.5 Custo da adaptação
+
+Para o Fraudador, cada adaptação exige mais esforço, dados ou recursos.
+
+Para o Sistema Antifraude, controles adicionais aumentam a complexidade e podem gerar falsos positivos ou dificultar o uso do cupom por clientes legítimos.
+
+### 3.6 Possível corrida armamentista
+
+A corrida armamentista surge quando cada novo controle leva o Fraudador a buscar uma nova forma de contorná-lo.
+
+Por exemplo:
+
+**controle por conta → novas contas → controle por CPF/telefone → alteração de dados → uso de sinais adicionais.**
+
+Nesse processo, cada lado reage às decisões do outro. Em jogos atacante-defensor com múltiplos períodos, esse tipo de adaptação sucessiva é parte central da interação estratégica (HAUSKEN; WELBURN; ZHUANG, 2024).
+
+### 3.7 Diagrama do ciclo adaptativo
+
+```mermaid
+flowchart LR
+    A["Fraudador realiza tentativa"]
+    B["Sistema avalia"]
+    C["Sistema responde"]
+    D["Fraudador observa"]
+    E["Fraudador adapta"]
+    F["Sistema identifica padrão"]
+    G["Sistema adapta controles"]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> A
+    C --> F
+    F --> G
+    G --> B
+```
 ---
 
 **## 4. Ameaças e Riscos**

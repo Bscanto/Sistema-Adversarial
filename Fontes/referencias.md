@@ -18,3 +18,9 @@
 ## Diagramas
 
 - Documentação oficial do Mermaid: https://mermaid.js.org
+
+## Referências utilizadas no Modelo Estratégico Dinâmico
+
+- HAUSKEN, Kjell; WELBURN, Jonathan W.; ZHUANG, Jun. *A Review of Attacker–Defender Games and Cyber Security*. Games, v. 15, n. 4, art. 28, 2024. DOI: 10.3390/g15040028.
+
+- OWASP FOUNDATION. *Business Logic Security Cheat Sheet*. OWASP Cheat Sheet Series. Disponível em: https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html. Acesso em: 27 set. 2026.
