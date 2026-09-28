@@ -253,8 +253,135 @@ flowchart LR
 ```
 ---
 
-**## 4. Ameaças e Riscos**
+## 4. Ameaças e Riscos
 
+### 4.1 Pontos de Exploração
+
+A interação analisada — _cadastro → aplicação do cupom → checkout_ — possui quatro pontos principais de exploração, onde regras, interfaces ou pressupostos podem ser contornados:
+
+|  | Ponto de Exploração | Descrição | Pressuposto ou Fraqueza Associada |
+|---|---|---|---|
+| P1 | Interface de Cadastro | Canal por onde o fraudador cria contas e insere dados (e-mail, CPF, telefone) | Sistema assume que e-mail/telefone válidos implicam pessoa real e distinta |
+| P2 | Regra "Um cupom por CPF" | Validação de unicidade do benefício por pessoa física | Verificação e marcação de uso não são atômicas — janela de race condition |
+| P3 | Validação de Identidade (CPF) | Camada que verifica formato e dígito verificador do CPF | Assume que CPF válido = titular autêntico, ignorando CPFs de fachada ou vazados |
+| P4 | Regra de Negócio do Cupom | Lógica de aplicação do desconto no checkout | Ausência de correlação entre múltiplos sinais (dispositivo, IP, pagamento) |
+
+### 4.2 Diagrama de Superfície de Ataque
+
+O diagrama abaixo representa visualmente os pontos de exploração (P1-P4), os componentes do sistema envolvidos e o ativo a preservar.
+
+```mermaid
+flowchart TD
+    subgraph Ator["Ator Adversarial"]
+        F["Fraudador"]
+    end
+
+    subgraph Sistema["Sistema de Resgate de Cupom"]
+        I1["P1 - Interface de Cadastro"]
+        C1["P3 - Validação de Identidade"]
+        R1["P2 - Regra: Um cupom por CPF"]
+        C2["P4 - Regra de Negócio do Cupom"]
+        DB[("Base de Dados")]
+    end
+
+    subgraph Ativo["Ativo a Preservar"]
+        A1["Integridade Financeira do Programa"]
+        A2["Justiça na Distribuição do Benefício"]
+    end
+
+    F  -- "1. Cria múltiplas contas"      --> I1
+    F  -- "2. Insere CPFs de terceiros"   --> C1
+    F  -- "3. Explora race condition"     --> R1
+    F  -- "4. Mascara IP/dispositivo"     --> C2
+
+    I1 --> C1
+    C1 --> R1
+    R1 --> C2
+    C2 --> DB
+    DB --> A1
+    DB --> A2
+```
+
+### 4.3 Cenários de Ameaça
+
+##### A1 - Race Condition no Resgate do Cupom
+
+Um fraudador pode disparar dezenas de requisições simultâneas de resgate do mesmo cupom por meio da regra "um cupom por CPF" (P2), aproveitando a separação entre "CPF ainda não usou" e a marcação "cupom utilizado", causando consumo múltiplo do benefício e perda financeira direta sobre a integridade financeira do programa promocional.
+
+A OWASP classifica esse tipo de falha como uma _race condition_ onde o resultado depende do timing das operações concorrentes, permitindo que uma lógica que deveria ser "apenas uma vez" seja executada múltiplas vezes (OWASP FOUNDATION, 2026). Estudos recentes sobre fraude em promoções de e-commerce confirmam que operações de resgate de valor — cupons, cashback, subsídios — são alvos recorrentes desse tipo de abuso, especialmente porque cada requisição individual é sintaticamente válida (LI et al., 2025)
+
+##### A2 - Uso de CPFs de Terceiros
+
+Um fraudador pode utilizar CPFs reais de terceiros obtidos em vazamentos de dados por meio da validação de identidade (P3), aproveitando o pressuposto de que "CPF válido = pessoa autêntica" e que a mera validação de formato/dígito verificador é suficiente, causando resgate indevido do benefício por agluém que não é o titular legítimo do CPF sobre a justiça na distribuição do benefício e a confiança no programa.
+
+A OWASP recomenda que sistemas que dispensam valor não dependam de um único identificador e considerem sinais como dispositivo, endereço IP, telefone e meio de pagamento (OWASP FOUNDATION, 2026). O estudo de Li et. al (2025) sobre fraude em promoções na plataforma Meituan documenta que os fraudadores frequentemente usam identidades sintéticas ou de terceiros e organizam-se em grupos para diluir o comportamento fraudulento entre transações legítimas.
+
+##### A3 - Multi-accounting com E-mails Descartáveis
+
+Um fraudador pode criar mútiplas contas utilizando serviçoes de e-mail descartáveis e SIMs virtuais por meio da interface de cadastro (P1), aproveitando a fraqueza da verificação por e-mail/telefone que não garante que uma pessoa real e distinta está por trás de cada cadastro, causando esgotamento prematuro do orçamento promocional e exclusão de clientes legítimos sobre a integridade financeira e a disponibilidade do benefício.
+
+A OWASP documenta que _multi-accounting_ é um padrão de abuso comum onde uma pessoa cria muitas contas para reivindicar recompensas múltiplas vezes, e que sinais de identidade além do e-mail — como fingerprint de dispositivo, verificação de telefone e KYC —são necessários para mitigar esse vetor (OWASP FOUNDATION, 2026). Li et. al (2025) observam que 82% dos usuários envolvidos em fraudes de promoção eram usuários comuns que também realizavam transações legítimas, o que torna o multi-accounting especialmente difícil de detectar por métodos tradicionais baseados apenas em comportamento individual.
+
+### 4.4 Avaliações de Riscos
+
+| ID | Cenário de Ameaça | Ponto de Exploração | Pressuposto ou Fraqueza | Ativo Afetado | Probabilidade | Impacto | Risco |
+|---|---|---|---|---|---|---|---|
+| A1 | Race condition no resgate do cupom | P2 | Verificação e marcação não são atômicas | Integridade financeira | 3 | 3 | 9 |
+| A2 | Uso de CPFs de terceiros | P3 | CPF válido = pessoa autêntica | Justiça na distribuição | 2 | 3 | 6 |
+| A3 | Multi-accounting com e-mails descartáveis | P1 | E-mail/telefone = pessoa real | Integridade financeira | 3 | 2 | 6 |
+
+Escala utilizada:
+
+- Probabilidade: 1 = baixa, 2 = média, 3 = alta
+- Impacto: 1 = baixo, 2 = médio, 3 = alto
+- Risco = Probabilidade × Impacto
+
+### 4.5 Ameaça Prioritária: A1 - Race Condition
+
+A ameaça A1 é a de maior prioridade (risco 9). A race condition é explorável com ferramentas simples, não requer identidades falsas ou dados vazados, e o impacto é direto sobre o orçamento promocional. A OWASP classifica _race conditions_ como uma das falhas de lógica de negócio mais críticas porque os controles tradicionais (WAF, autenticação) não as detectam — cada requisição individual é "válida" do ponto de vista sintático (OWASP FOUNDATION, 2026).
+
+##### Como o sistema poderia responder:
+
+A correção fundamental é tornar a operação de resgate atômica — uma única declaração de banco de dados, uma unique constraint, um row lock ou uma transação — de modo que requisições concorrentes não possam se intercalar (SecureLayer7, 2026). Em vez de ler o estado do cupom, verificar se está disponível, e depois atualizar (padrão read-then-write), o sistema deve executar uma operação condicional única:
+
+```
+UPDATE cupons SET usado = 1 WHERE codigo = 'PRIMEIRACOMPRA10' AND cpf = ? AND usado = 0;
+```
+
+Se rowcount for 0, o cupom já foi usado ou o CPF não é elegível. Se for 1, a operação é bem-sucedida. O banco garante a atomicidade — nenhuma outra requisição pode intercalar entre o check e o update. A SecureLayer7 (2026) recomenda ainda idempotency keys para operações que devem acontecer uma única vez e testes com requisições concorrentes (não apenas sequenciais) em endpoints sensíveis.
+
+##### Que informação esta resposta revelaria:
+
+O sistema passaria a registrar tentativas de resgate concorrentes. Requisições simultâneas com o mesmo CPF ou código de cupom gerariam logs com padrões distintos: timestamp collapse (múltiplas requisições no mesmo segundo), bursts de conexões concorrentes e repeated success on one-shot operation (o mesmo cupom retornando sucesso múltiplas vezes antes da correção). Esses sinais indicam a presença de um agente automatizado — não de um usuário humano, cujo comportamento típico é sequencial e espaçado no tempo.
+
+##### Como o adversario poderia se adaptar na rodada seguinte:
+
+Após a correção atômica, o fraudador observaria que requisições simultâneas não funcionam mais. A adaptação natural seria:
+
+- Aumentar a variabilidade de CPFs por tentativa, em vez de repetir o mesmo — mas isso esbarra no custo de obter CPFs válidos.
+- Distribuir as tentativas ao longo do tempo para evitar detecção por burst, mas isso reduz a eficiência da automação.
+- Mudar para exploração de outros pontos (A2 ou A3), buscando identidades que o sistema ainda não consegue correlacionar.
+- Fragmentar grupos: Li et al. (2025) observam que fraudadores podem fragmentar grupos para esconder padrões de coesão espacial e temporal, ou usar identidades sintéticas/roubadas para reduzir a frequência de transações por conta. Isso eleva o custo operacional do adversário, mas é uma adaptação plausível.
+- Testar variantes da race condition em outras operações: a SecureLayer7 (2026) lista explicitamente "overdraw de saldo", "bypass de limite de taxa ou quantidade" e "bypass do contador" como alvos análogos. O fraudador pode migrar para cashback, gift cards ou outras operações que dispensam valor.
+
+##### Quais efeitos colaterais poderiam atingir usuários legítimos:
+
+- **Falsos positivos por CPF compartilhado:** se a validação usar combinações de sinais muito restritivas (CPF + dispositivo + IP), um usuário legítimo que acessa de um dispositivo novo pode ser bloqueado injustamente.
+- **Bloqueio de famílias ou residências:** se o sistema usar IP ou dispositivo como sinal de correlação, moradores de uma mesma casa podem ser erroneamente identificados como multi-accounting.
+- **Falhas de idempotência:** um usuário legítimo que clicar duas vezes no botão "Aplicar cupom" por latência pode receber erro confuso ou ter a compra abortada — a menos que o sistema use idempotency keys (SecureLayer7, 2026).
+- **Sobreposição legítima de padrões:** Li et al. (2025) mostram que usuários normais também podem exibir padrões que se assemelham a fraude — por exemplo, comprar produtos populares promocionais no mesmo período ou na mesma loja — o que gera falsos positivos mesmo em sistemas sofisticados.
+
+##### Qual risco continuaria existindo após a resposta:
+
+- **A2 e A3 permanecem:** a race condition é apenas um vetor. O uso de CPFs de terceiros e multi-accounting com e-mails descartáveis continuam viáveis se não houver verificação de identidade mais robusta.
+- **Race conditions em outras operações:** conforme a SecureLayer7 (2026), o mesmo padrão pode ser testado em qualquer operação que envolva um recurso limitado. O fraudador pode migrar para cashback, gift cards ou subsídios.
+- **Complexidade do controle:** cada nova camada de validação adiciona latência e pontos de falha que podem degradar a experiência do usuário. Li et al. (2025) apontam que mesmo detectores sofisticados geram falsos positivos e falsos negativos — a fraude é um problema em aberto.
+
+##### O que o sistema precisa continuar preservando:
+
+- **Conversão de clientes legítimos:** a fricção adicionada não pode ser tão alta que usuários genuínos abandonem a compra. A OWASP recomenda que ações que dispensam valor sejam "mais difíceis do que ações que não dispensam", mas a assimetria deve ser calibrada (OWASP FOUNDATION, 2026).
+- **Transparência e reparabilidade:** usuários legítimos falsamente bloqueados precisam de um canal claro para contestar.
+- **Justiça na distribuição:** o objetivo final é garantir que o benefício chegue a quem realmente é um novo cliente.
 
 ## 5. Declaração de Uso de IA Generativa
 
