@@ -24,3 +24,9 @@
 - HAUSKEN, Kjell; WELBURN, Jonathan W.; ZHUANG, Jun. *A Review of Attacker–Defender Games and Cyber Security*. Games, v. 15, n. 4, art. 28, 2024. DOI: 10.3390/g15040028.
 
 - OWASP FOUNDATION. *Business Logic Security Cheat Sheet*. OWASP Cheat Sheet Series. Disponível em: https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html. Acesso em: 27 set. 2026.
+
+## Referências para Ameaças e Riscos
+
+- LI, Shaofei; HAN, Xiao; ZHANG, Ziqi; HUA, Minyao; GAO, Shuli; LIANG, Zhenkai; GUO, Yao; CHEN, Xiangqun; LI, Ding. _PromoGuardian: Detecting Promotion Abuse Fraud with Multi-Relation Fused Graph Neural Networks_. arXiv:2510.12652 [cs.CR], 14 out. 2025. Disponível em: https://arxiv.org/abs/2510.12652. Acesso em: 28 set. 2026.
+
+- SECURELAYER7. _What is a Race Condition?_ Disponível em: https://securelayer7.net/learn-pdf/application-security/race-conditions.pdf. Acesso em: 28 set. 2026.
