@@ -274,30 +274,37 @@ Para o **Sistema Antifraude**:
 
 Assim, **B2 – Validação reforçada é uma estratégia estritamente dominante para o Sistema Antifraude**. Para o Fraudador, não existe uma estratégia dominante estrita, pois A1 e A2 produzem o mesmo payoff em cada possível escolha do Sistema.
 
-### 2.6 Estratégia dominante
+### 2.6 Estratégias dominantes
 
-Não existe uma estratégia dominante para o **Fraudador**.
+Uma estratégia é dominante quando proporciona ao jogador um resultado pelo menos tão bom quanto as demais estratégias, independentemente da escolha do adversário.
 
-Quando o Sistema permite a utilização, a melhor escolha do Fraudador é tentar reutilizar o cupom. Porém, quando o Sistema bloqueia, a melhor escolha é desistir.
+No modelo analisado, o **Sistema Antifraude possui uma estratégia dominante**:
 
-Para o **Sistema Antifraude**, bloquear é a melhor resposta quando existe uma tentativa de reutilização. Quando o Fraudador desiste, as duas ações possuem o mesmo payoff.
+- **B2 – Validação reforçada** gera payoff 2 para o Sistema tanto contra A1 quanto contra A2.
+- **B1 – Validação básica** gera payoff 0 contra A1 e também contra A2.
 
-Dessa forma, o modelo não apresenta uma estratégia dominante que seja sempre a melhor independentemente da escolha do outro jogador.
+Portanto, B2 proporciona um resultado estritamente melhor ao Sistema em qualquer situação.
+
+Para o **Fraudador**, A1 e A2 produzem os mesmos payoffs em ambas as escolhas do Sistema. Assim, não existe uma estratégia dominante estrita entre as duas no modelo estático.
+
+Essa característica também mostra uma limitação intencional do modelo estático: a diferença de sofisticação entre uma tentativa simples e uma tentativa adaptativa não altera o payoff diretamente. Essa diferença será explorada com maior importância no modelo estratégico dinâmico.
 
 ### 2.7 Equilíbrio de Nash
 
-Existem dois resultados nos quais nenhum dos jogadores consegue melhorar seu payoff mudando sua ação sozinho:
+Um equilíbrio de Nash ocorre quando nenhum dos jogadores consegue melhorar seu payoff alterando sua estratégia individualmente, mantendo a estratégia do outro jogador fixa.
 
-- **(A1, B1) = (3, 0)**
-- **(A2, B2) = (1, 1)**
+Na matriz proposta, existem dois equilíbrios de Nash em estratégias puras:
 
-No resultado **(A1, B1)**, o Fraudador tenta reutilizar e o Sistema permite. O Fraudador não possui incentivo para mudar sozinho, pois passaria de 3 para 1. Entretanto, é importante observar que o Sistema **possui incentivo para mudar sozinho**, passando de 0 para 2 ao bloquear. Portanto, **(A1, B1) não é um equilíbrio de Nash**.
+- **(A1, B2) = (0,2)**
+- **(A2, B2) = (0,2)**
 
-O resultado **(A2, B2) = (1, 1)** é um equilíbrio de Nash. Se o Fraudador mudar sozinho para tentar reutilizar, seu payoff cairá de 1 para 0. Se o Sistema mudar sozinho de bloquear para permitir, seu payoff permanecerá 1. Portanto, nenhum dos jogadores melhora seu resultado com uma mudança unilateral.
+No equilíbrio **(A1, B2)**, o Fraudador recebe payoff 0 e não melhora ao mudar para A2, pois continuaria recebendo 0. O Sistema recebe payoff 2 e reduziria seu resultado para 0 caso mudasse de B2 para B1.
 
-Assim, o equilíbrio de Nash do modelo é:
+No equilíbrio **(A2, B2)**, ocorre o mesmo: o Fraudador continua com payoff 0 ao mudar para A1, enquanto o Sistema reduziria seu payoff de 2 para 0 caso escolhesse B1.
 
-**(Desistir, Bloquear) = (1, 1)**
+Assim, nos dois equilíbrios, o Sistema utiliza **B2 – Validação reforçada**, enquanto o Fraudador pode escolher entre A1 e A2 sem alterar seu payoff no modelo estático.
+
+Essa característica reforça a diferença entre os modelos estático e dinâmico: no modelo estático, A1 e A2 são equivalentes em termos de payoff; no modelo dinâmico, a capacidade de adaptação do Fraudador poderá produzir diferenças ao longo das rodadas.
 
 ### 2.8 Resultado para o sistema e para os usuários legítimos
 
