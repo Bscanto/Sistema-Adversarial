@@ -23,26 +23,65 @@
 
 O sistema analisado é uma **plataforma de e-commerce** e a interação específica avaliada é o **resgate de um cupom promocional de primeira compra** (`PRIMEIRACOMPRA10`, 10% de desconto), regra: **um cupom por pessoa física**, validado no momento do checkout.
 
-Não se analisa o e-commerce como um todo — o recorte é estritamente o fluxo _cadastro → aplicação do cupom → checkout_, que é exatamente o que precisará virar código no Trabalho 2.
+A regra de negócio analisada estabelece que o benefício pode ser utilizado uma única vez por pessoa física. A elegibilidade é verificada durante o processo de checkout.
+
+O trabalho não analisa o e-commerce em sua totalidade. O escopo está restrito ao fluxo:
+
+cadastro → aplicação do cupom → validação antifraude → checkout
+
+Durante esse fluxo, o sistema recebe informações cadastrais e transacionais, como CPF, e-mail, telefone, dispositivo, endereço de rede, meio de pagamento e histórico de utilização do benefício. A partir dessas informações, o sistema pode tomar uma das seguintes decisões:
+
+autorizar a aplicação do cupom;
+
+rejeitar a aplicação do cupom;
+
+solicitar uma verificação adicional.
+
+Esse recorte foi escolhido por representar uma interação suficientemente pequena para análise no Trabalho 1 e posterior implementação no Trabalho 2.
 
 ### 1.2 Atores
 
-| Ator                              | Objetivo                                                                                   | Ações ou capacidades                                                                                                                                                                                   | Informações observáveis                                                                                       | Restrições ou custos                                                                                                             |
-| --------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| **Fraudador**                     | Resgatar o cupom o maior número de vezes possível, minimizando esforço e risco de bloqueio | Criar múltiplas contas (e-mails/telefones novos); usar CPFs gerados ou de terceiros; reutilizar cartões pré-pagos; mascarar IP/dispositivo (VPN, device farm); automatizar cadastros via script        | Mensagens do sistema (cupom aceito/recusado, conta bloqueada); tempo de resposta; se a compra foi aprovada    | Custo de criar identidades falsas (tempo, dados, cartões); risco de banimento; CAPTCHA; limite de tentativas                     |
-| **Sistema Antifraude (defensor)** | Impedir uso indevido do cupom preservando conversão dos clientes legítimos                 | Validar CPF/e-mail únicos; fingerprint de dispositivo; blacklist de domínios de e-mail descartável; análise de IP/geolocalização; exigir verificação extra (SMS, documento); bloquear contas suspeitas | Padrões de cadastro (velocidade, IPs repetidos, device reincidente); histórico de uso do cupom por CPF/cartão | Custo de fricção sobre usuários legítimos (queda de conversão); custo operacional/computacional da verificação; falsos positivos |
+| **Ator** | **Objetivo** | **Ações ou capacidades** | **Informações observáveis** | **Restrições ou custos** |
+|---|---|---|---|---|
+| **Fraudador** | Obter repetidamente o benefício promocional, reduzindo o custo das compras e evitando mecanismos de detecção. | Criar múltiplas identidades digitais; alterar dados cadastrais; variar sinais de dispositivo ou rede; realizar sucessivas tentativas de resgate. | Aceitação ou rejeição do cupom; solicitação de verificação adicional; bloqueio da conta; aprovação ou rejeição da compra. | Tempo e esforço para criação de novas identidades; necessidade de novos meios de verificação; possibilidade de bloqueio; limitação de tentativas. |
+| **Sistema Antifraude (defensor)** | Impedir usos indevidos do benefício sem gerar fricção excessiva para usuários legítimos. | Validar unicidade de dados; correlacionar contas; analisar sinais cadastrais, transacionais, de dispositivo e rede; solicitar verificações adicionais; bloquear tentativas suspeitas. | Frequência e velocidade dos cadastros; repetição de dispositivos, meios de pagamento ou outros sinais; histórico de utilização do cupom; resultados das verificações anteriores. | Custo computacional e operacional; possibilidade de falsos positivos; aumento de fricção durante o checkout; eventual redução da taxa de conversão. |
+| **Cliente legítimo** | Utilizar corretamente o benefício em sua primeira compra e concluir o checkout com pouca fricção. | Criar uma conta; informar dados cadastrais; aplicar o cupom; realizar verificações solicitadas; concluir a compra. | Resultado da validação do cupom; mensagens de erro; solicitações adicionais de confirmação. | Tempo necessário para concluir verificações; possibilidade de bloqueio incorreto; abandono da compra caso o processo seja excessivamente complexo. |
 
-### 1.3 Ativo a preservar
 
-**Integridade financeira do programa promocional** e **justiça de distribuição do benefício** entre clientes legítimos — sem que a defesa gere fricção excessiva a ponto de prejudicar a experiência de quem não está fraudando.
+### 1.3 Ativos e propriedades a preservar
+
+O principal ativo do sistema é a **integridade financeira do programa promocional**, garantindo que o desconto seja concedido somente aos usuários que atendam aos critérios estabelecidos.
+
+Além disso, o sistema deve preservar:
+
+- **Justiça na distribuição do benefício**, evitando que um mesmo agente obtenha vantagens repetidas;
+- **Confiabilidade da regra de primeira compra**, garantindo que o benefício seja utilizado conforme as condições da promoção;
+- **Experiência dos clientes legítimos**, reduzindo falsos positivos e verificações desnecessárias;
+- **Sustentabilidade econômica da promoção**, evitando perdas financeiras provocadas pelo uso indevido do cupom.
+
+Existe, portanto, um compromisso entre **segurança e usabilidade**: controles mais rigorosos podem reduzir a ocorrência de fraude, mas também podem aumentar a fricção enfrentada pelos compradores legítimos.
 
 ### 1.4 Pressupostos do sistema
 
-1. **CPF identifica uma pessoa única e não pode ser facilmente reciclado.**
-   _Como pode falhar:_ existem geradores de CPF matematicamente válidos ("de fachada") e vazamentos de bases de dados que fornecem CPFs reais de terceiros, permitindo ao fraudador usar identidades que passam na validação de formato/dígito verificador.
+O funcionamento do mecanismo antifraude depende de alguns pressupostos.
 
-2. **Verificação por e-mail/telefone garante que uma pessoa real está por trás do cadastro.**
-   _Como pode falhar:_ serviços de e-mail descartável (temp-mail) e SIMs virtuais de baixo custo permitem gerar identidades de verificação válidas em segundos, em lote.
+### 1.4.1 Identificadores cadastrais representam adequadamente uma pessoa
+
+O sistema assume que informações como **CPF, telefone e e-mail** permitem diferenciar compradores distintos.
+
+**Como esse pressuposto pode falhar:** diferentes identidades digitais podem ser utilizadas pelo mesmo agente ou dados válidos pertencentes a terceiros podem aparecer em novos cadastros, dificultando a identificação de que diferentes contas estão relacionadas.
+
+### 1.4.2 Verificações de contato aumentam a confiança na identidade cadastrada
+
+O sistema assume que a confirmação de **e-mail ou telefone** representa uma barreira suficiente para dificultar a criação repetida de contas.
+
+**Como esse pressuposto pode falhar:** um mesmo agente pode conseguir acesso a múltiplos canais de contato ou criar novas identidades digitais com baixo custo, reduzindo a eficácia desse mecanismo de validação.
+
+### 1.4.3 Sinais técnicos e transacionais permitem correlacionar contas relacionadas
+
+O sistema assume que informações como **dispositivo, endereço de rede, meio de pagamento e padrões de comportamento** podem indicar que diferentes contas pertencem ao mesmo agente.
+
+**Como esse pressuposto pode falhar:** esses sinais podem variar entre diferentes tentativas. Além disso, clientes legítimos podem compartilhar determinadas características, como a mesma rede, endereço ou dispositivo, aumentando o risco de falsos positivos.
 
 ### 1.5 Por que isso é adversarial (e não um erro/acidente)
 
@@ -73,6 +112,100 @@ graph TD
     PG -- "confirma transação" --> P
     V -. "sinaliza padrão suspeito" .-> C
 ```
+
+O cenário analisado não representa apenas um erro de software ou uma utilização acidental da promoção.
+
+Existe um participante com objetivo próprio — o **fraudador** — que procura obter repetidamente um benefício que deveria ser concedido apenas uma vez. Para atingir esse objetivo, ele realiza ações, observa as respostas produzidas pelo sistema e pode modificar seu comportamento nas tentativas seguintes.
+
+O **sistema antifraude** também possui um objetivo próprio: preservar a regra da promoção e reduzir perdas financeiras sem prejudicar excessivamente os clientes legítimos. Para isso, observa padrões de comportamento e pode modificar suas decisões ou exigir verificações adicionais.
+
+Forma-se, portanto, um ciclo de interação adversarial:
+
+```text
+Ação do participante
+        ↓
+Resposta do sistema
+        ↓
+Observação do resultado
+        ↓
+Adaptação da estratégia
+        ↓
+Nova ação
+```
+
+A presença de **objetivos parcialmente conflitantes**, informações observáveis e capacidade de adaptação caracteriza o problema como um **sistema adversarial**, e não simplesmente como uma falha ou erro acidental.
+
+---
+
+## 1.6 Delimitação arquitetural
+
+Para fins do Trabalho 2, o cenário pode ser inicialmente representado pelos seguintes componentes:
+
+```text
+Cliente/Fraudador
+       │
+       ▼
+    Cadastro
+       │
+       ▼
+Serviço de Cupons
+       │
+       ▼
+Módulo Antifraude
+       │
+       ▼
+    Checkout
+```
+
+O **Módulo Antifraude** recebe sinais associados à tentativa de utilização do benefício e produz uma decisão que influencia a continuidade do checkout.
+
+De maneira simplificada:
+
+```text
+                         ┌────────────────────┐
+                         │ Cliente legítimo   │
+                         └─────────┬──────────┘
+                                   │
+                                   ▼
+┌──────────────┐          ┌───────────────────┐
+│  Fraudador   │─────────►│ Plataforma        │
+└──────────────┘          │ de E-commerce     │
+                          └─────────┬─────────┘
+                                    │
+                                    ▼
+                          ┌───────────────────┐
+                          │ Serviço de Cupons │
+                          └─────────┬─────────┘
+                                    │
+                                    ▼
+                          ┌───────────────────┐
+                          │ Sistema Antifraude│
+                          └─────────┬─────────┘
+                                    │
+                                    ▼
+                          ┌───────────────────┐
+                          │     Checkout      │
+                          └───────────────────┘
+```
+
+---
+
+## 1.7 Diagrama de contexto
+
+O diagrama de contexto apresenta os principais participantes, componentes e interações existentes no cenário analisado.
+
+O diagrama deve representar:
+
+- **Cliente legítimo**;
+- **Fraudador**;
+- **Plataforma de e-commerce**;
+- **Serviço de cupons**;
+- **Sistema antifraude**;
+- **Checkout**;
+- Fluxo das solicitações e decisões tomadas pelo sistema.
+
+
+
 
 ---
 
