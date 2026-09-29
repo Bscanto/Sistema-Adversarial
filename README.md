@@ -306,15 +306,15 @@ Assim, nos dois equilíbrios, o Sistema utiliza **B2 – Validação reforçada*
 
 Essa característica reforça a diferença entre os modelos estático e dinâmico: no modelo estático, A1 e A2 são equivalentes em termos de payoff; no modelo dinâmico, a capacidade de adaptação do Fraudador poderá produzir diferenças ao longo das rodadas.
 
-### 2.8 Resultado para o sistema e para os usuários legítimos
+### 2.8 Conclusão do modelo estratégico estático
 
-O resultado **(Desistir, Bloquear)** é positivo para a proteção do sistema porque a tentativa de reutilização do cupom não ocorre e o Sistema Antifraude mantém a barreira contra o uso indevido do benefício.
+O modelo estratégico estático mostra que, considerando os payoffs definidos, a **Validação reforçada (B2)** é a estratégia dominante do Sistema Antifraude. Independentemente de o Fraudador realizar uma tentativa simples (A1) ou adaptativa (A2), a validação reforçada proporciona ao Sistema um payoff maior.
 
-Para os usuários legítimos, esse resultado contribui para preservar a regra de **um cupom por pessoa física**, evitando que o benefício destinado a novos clientes seja consumido repetidamente por um mesmo fraudador.
+Para o Fraudador, A1 e A2 são equivalentes em termos de payoff neste modelo, pois ambas produzem o mesmo resultado diante de cada estratégia do Sistema. Isso significa que o modelo estático não diferencia a efetividade das duas formas de tentativa adversarial.
 
-O modelo também demonstra que a decisão de cada participante está relacionada à decisão do outro. O Fraudador considera se sua tentativa será permitida ou bloqueada, enquanto o Sistema Antifraude precisa reagir ao comportamento do Fraudador.
+Essa limitação é intencional e motiva a utilização do **modelo estratégico dinâmico**, no qual as interações ocorrem em múltiplas rodadas e os jogadores podem observar resultados anteriores e adaptar suas estratégias.
 
-Dessa forma, a situação pode ser analisada como um jogo estratégico em que as escolhas dos participantes são interdependentes, e não como uma decisão isolada de apenas um dos lados.
+Assim, o modelo estático estabelece uma situação inicial para a análise, enquanto o modelo dinâmico permite representar a evolução da disputa entre as tentativas do Fraudador e os mecanismos de defesa do Sistema Antifraude.
 
 ---
 
