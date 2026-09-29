@@ -236,23 +236,27 @@ Os valores utilizados representam a ordem de preferência de cada jogador, sendo
 | **A1 – Tentativa simples** | **(3, 0)** | **(0, 2)** |
 | **A2 – Tentativa adaptativa** | **(3, 0)** | **(0, 2)** |
 
-### 2.3 Explicação das ações
+### 2.3 Explicação das estratégias
 
-A ação **A1 – Tentar reutilizar** representa o comportamento adversarial no qual o fraudador tenta utilizar novamente um benefício que deveria estar disponível apenas uma vez por pessoa física. Isso pode ocorrer por meio da criação de novas contas ou utilização de diferentes identidades e dados de cadastro.
+A estratégia **A1 – Tentativa simples** representa uma tentativa de reutilização do cupom na qual o Fraudador altera poucos sinais identificadores, facilitando sua correlação com utilizações anteriores.
 
-A ação **A2 – Desistir** representa a situação em que o fraudador não continua a tentativa de reutilização do cupom.
+A estratégia **A2 – Tentativa adaptativa** representa uma tentativa mais elaborada, na qual o Fraudador modifica múltiplos sinais para dificultar a identificação da reutilização do benefício.
 
-Para o Sistema Antifraude, **B1 – Permitir** representa a aceitação da utilização do cupom, enquanto **B2 – Bloquear** representa a identificação da tentativa como suspeita e o impedimento do resgate.
+Para o Sistema Antifraude, **B1 – Validação básica** representa uma análise baseada em um conjunto limitado de sinais de elegibilidade.
+
+A estratégia **B2 – Validação reforçada** representa uma análise que correlaciona múltiplos sinais e aplica controles adicionais para aumentar a capacidade de identificação de tentativas de reutilização.
+
+Dessa forma, o modelo representa a interação entre diferentes níveis de sofisticação da tentativa adversarial e diferentes níveis de capacidade de validação do sistema.
 
 ### 2.4 Justificativa dos payoffs
 
 Os valores da matriz representam os benefícios e custos relativos de cada resultado para os dois jogadores.
 
-- **(3, 0):** o fraudador tenta reutilizar o cupom e o sistema permite a operação. Esse é o melhor resultado para o fraudador, pois ele consegue obter novamente o desconto. Para o sistema, o resultado é o pior, pois a regra de um cupom por pessoa é violada.
+- **(3, 0):** o Fraudador consegue reutilizar o benefício diante de uma validação básica. Esse é o melhor resultado para o Fraudador, pois a tentativa é bem-sucedida. Para o Sistema Antifraude, representa o pior resultado, pois a reutilização indevida não foi identificada.
 
-- **(0, 2):** o fraudador tenta reutilizar o cupom, mas o sistema bloqueia a operação. O fraudador não consegue obter o benefício e recebe o menor payoff. Para o sistema, esse é um resultado positivo, pois a tentativa de fraude é impedida.
+- **(0, 2):** o Sistema Antifraude utiliza uma validação reforçada e impede a reutilização do benefício. O Fraudador não consegue obter o desconto e recebe o menor payoff. Para o Sistema, o resultado é positivo porque a tentativa de reutilização foi impedida.
 
-- **(1, 1):** o fraudador desiste da tentativa. Nesse caso, não há obtenção de um novo desconto, mas também não há uma perda adicional causada por uma tentativa bloqueada. Por isso, ambos recebem um payoff intermediário de 1. Como o fraudador já desistiu, a escolha do sistema entre permitir ou bloquear não altera esse resultado.
+A mesma estrutura de payoffs é aplicada às tentativas simples e adaptativas porque, no modelo estático, o resultado considerado é a obtenção ou não do benefício. A diferença de sofisticação entre A1 e A2 será explorada principalmente no modelo estratégico dinâmico, no qual o Fraudador pode adaptar seu comportamento em resposta às medidas adotadas pelo Sistema Antifraude.
 
 ### 2.5 Melhores respostas
 
