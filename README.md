@@ -215,26 +215,26 @@ O diagrama deve representar:
 
 A decisão central analisada é a interação entre o **Fraudador** e o **Sistema Antifraude** durante uma tentativa de resgate do cupom `PRIMEIRACOMPRA10`.
 
-O **Fraudador** precisa decidir se irá tentar reutilizar o cupom ou se irá desistir da tentativa. O **Sistema Antifraude**, por sua vez, precisa decidir se irá permitir ou bloquear a utilização do cupom.
+O **Fraudador** busca reutilizar um benefício destinado à primeira compra, enquanto o **Sistema Antifraude** busca identificar e impedir utilizações indevidas sem comprometer desnecessariamente a experiência dos usuários legítimos.
 
-Para representar essa situação como um jogo, são considerados dois jogadores e duas ações possíveis para cada um.
+Para representar essa situação como um jogo, são considerados dois jogadores e duas estratégias possíveis para cada um.
 
 - **Jogador A — Fraudador**
-  - **A1 – Tentar reutilizar:** tenta obter novamente o desconto de primeira compra.
-  - **A2 – Desistir:** não tenta reutilizar o cupom.
+  - **A1 – Tentativa simples:** tenta reutilizar o benefício alterando poucos sinais identificadores.
+  - **A2 – Tentativa adaptativa:** tenta reutilizar o benefício modificando múltiplos sinais para dificultar a correlação entre contas.
 
 - **Jogador B — Sistema Antifraude**
-  - **B1 – Permitir:** aceita a utilização do cupom.
-  - **B2 – Bloquear:** identifica a tentativa como suspeita e impede a utilização.
+  - **B1 – Validação básica:** utiliza um conjunto limitado de sinais para verificar a elegibilidade do usuário.
+  - **B2 – Validação reforçada:** correlaciona múltiplos sinais e aplica controles adicionais para identificar tentativas de reutilização.
 
 Os valores utilizados representam a ordem de preferência de cada jogador, sendo **3 o melhor resultado e 0 o pior**. A ordem dos valores em cada célula é **(payoff do Fraudador, payoff do Sistema Antifraude)**.
 
 ### 2.2 Matriz de payoffs
 
-| Fraudador \ Sistema Antifraude | **B1 – Permitir** | **B2 – Bloquear** |
+| Fraudador \ Sistema Antifraude | **B1 – Validação básica** | **B2 – Validação reforçada** |
 |---|---:|---:|
-| **A1 – Tentar reutilizar** | **(3, 0)** | **(0, 2)** |
-| **A2 – Desistir** | **(1, 1)** | **(1, 1)** |
+| **A1 – Tentativa simples** | **(3, 0)** | **(0, 2)** |
+| **A2 – Tentativa adaptativa** | **(3, 0)** | **(0, 2)** |
 
 ### 2.3 Explicação das ações
 
