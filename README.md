@@ -419,6 +419,8 @@ flowchart LR
 
 ## 4. Ameaças e Riscos
 
+**Nota de nomenclatura:** nesta seção, os identificadores A1, A2 e A3 representam cenários de ameaça e não devem ser confundidos com as estratégias A1 – Tentativa simples e A2 – Tentativa adaptativa utilizadas no modelo estratégico das Partes 2 e 3.
+
 ### 4.1 Pontos de Exploração
 
 A interação analisada — _cadastro → aplicação do cupom → checkout_ — possui quatro pontos principais de exploração, onde regras, interfaces ou pressupostos podem ser contornados:
@@ -482,7 +484,7 @@ A OWASP recomenda que sistemas que dispensam valor não dependam de um único id
 
 ##### A3 - Multi-accounting com E-mails Descartáveis
 
-Um fraudador pode criar mútiplas contas utilizando serviçoes de e-mail descartáveis e SIMs virtuais por meio da interface de cadastro (P1), aproveitando a fraqueza da verificação por e-mail/telefone que não garante que uma pessoa real e distinta está por trás de cada cadastro, causando esgotamento prematuro do orçamento promocional e exclusão de clientes legítimos sobre a integridade financeira e a disponibilidade do benefício.
+Um fraudador pode criar múltiplas contas utilizando serviços de e-mail descartáveis e SIMs virtuais por meio da interface de cadastro (P1), aproveitando a fraqueza da verificação por e-mail/telefone que não garante que uma pessoa real e distinta está por trás de cada cadastro, causando esgotamento prematuro do orçamento promocional e exclusão de clientes legítimos sobre a integridade financeira e a disponibilidade do benefício.
 
 A OWASP documenta que _multi-accounting_ é um padrão de abuso comum onde uma pessoa cria muitas contas para reivindicar recompensas múltiplas vezes, e que sinais de identidade além do e-mail — como fingerprint de dispositivo, verificação de telefone e KYC —são necessários para mitigar esse vetor (OWASP FOUNDATION, 2026). Li et. al (2025) observam que 82% dos usuários envolvidos em fraudes de promoção eram usuários comuns que também realizavam transações legítimas, o que torna o multi-accounting especialmente difícil de detectar por métodos tradicionais baseados apenas em comportamento individual.
 
