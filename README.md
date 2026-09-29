@@ -334,43 +334,65 @@ A interação segue o ciclo:
 
 | Rodada | Ação do Fraudador | Resposta do Sistema | O que se torna observável? | Adaptação seguinte |
 |---|---|---|---|---|
-| **1** | Cria uma nova conta e tenta reutilizar o cupom | O sistema consulta o histórico e recusa o benefício | Apenas criar outra conta pode não ser suficiente | O Fraudador altera outros dados da tentativa |
-| **2** | Utiliza novos dados, IP ou dispositivo | O sistema cruza múltiplos sinais | A validação utiliza mais de um identificador | O Fraudador passa a alterar vários elementos |
-| **3** | Combina diferentes identidades e sinais | O sistema identifica padrões e aplica controles adicionais | O sistema também utiliza o histórico das tentativas | O Fraudador procura outra forma de contornar a defesa |
+| **1** | Realiza uma **tentativa simples (A1)** de reutilização do cupom | O Sistema aplica os controles disponíveis e aceita ou recusa a tentativa | O Fraudador observa o resultado e os sinais que parecem influenciar a decisão | Caso a tentativa seja identificada, o Fraudador pode passar para uma abordagem mais adaptativa |
+| **2** | Realiza uma **tentativa adaptativa (A2)**, modificando múltiplos sinais | O Sistema correlaciona diferentes sinais e responde à nova tentativa | O Sistema observa novos padrões de comportamento | O Sistema pode reforçar ou ajustar seus controles |
+| **3** | O Fraudador realiza uma nova tentativa considerando os resultados anteriores | O Sistema utiliza o histórico acumulado e os controles ajustados | Ambos os jogadores possuem mais informações sobre o comportamento do adversário | Cada lado pode adaptar novamente sua estratégia |
 
 A criação de múltiplas contas para obter repetidamente um benefício é um exemplo de abuso de lógica de negócio. A OWASP recomenda que sistemas de promoções não dependam de um único identificador e considerem diferentes sinais, como dispositivo, endereço IP, telefone e meio de pagamento (OWASP FOUNDATION, 2026).
 
 ### 3.2 Quem observa quem?
 
-A observação ocorre nos dois sentidos. O Fraudador observa respostas como aceitação, rejeição ou bloqueio. O Sistema Antifraude observa cadastros, tentativas de resgate, histórico de utilização e padrões de comportamento.
+A observação ocorre nos dois sentidos e é fundamental para a dinâmica do jogo.
+
+O **Fraudador** observa a resposta do Sistema Antifraude após cada tentativa, como aceitação, rejeição ou bloqueio. A partir dessas informações, pode avaliar se sua estratégia foi eficaz e decidir se deve mantê-la ou adaptá-la na rodada seguinte.
+
+O **Sistema Antifraude** observa os cadastros, as tentativas de resgate, o histórico de utilização e os padrões de comportamento. Essas informações podem ser utilizadas para identificar comportamentos suspeitos e ajustar os controles aplicados nas rodadas seguintes.
+
+Assim, cada rodada pode gerar novas informações para ambos os jogadores, permitindo que suas estratégias sejam modificadas ao longo do tempo.
 
 ### 3.3 O que cada lado consegue modificar?
 
-O Fraudador pode alterar conta, e-mail, telefone, CPF, dispositivo, endereço IP ou meio de pagamento.
+Em cada rodada, os jogadores podem modificar diferentes elementos de suas estratégias.
 
-O Sistema Antifraude pode alterar regras de validação, limites de tentativas e quantidade de sinais analisados.
+O **Fraudador** pode modificar os elementos utilizados em sua tentativa de reutilização do cupom, como dados da conta, informações de contato, dispositivo, endereço IP ou outros sinais considerados relevantes pelo sistema.
+
+O **Sistema Antifraude** pode modificar seus mecanismos de validação, como as regras utilizadas, os limites de tentativas e a quantidade ou combinação de sinais analisados.
+
+Dessa forma, a adaptação de cada jogador ocorre sobre elementos que estão sob seu controle. O Fraudador modifica a forma como realiza a tentativa, enquanto o Sistema modifica a forma como realiza a validação.
 
 ### 3.4 O que dispara uma adaptação?
 
-Para o Fraudador, a adaptação ocorre quando uma tentativa é rejeitada ou quando a resposta indica que determinada estratégia deixou de funcionar.
+A adaptação ocorre quando um jogador obtém novas informações a partir do comportamento do adversário ou do resultado de uma rodada.
 
-Para o Sistema Antifraude, a adaptação ocorre quando surgem novos padrões de abuso ou quando os controles existentes deixam de ser suficientes.
+Para o **Fraudador**, uma rejeição ou bloqueio pode indicar que os controles utilizados pelo Sistema foram suficientes para identificar a tentativa. A partir dessa informação, o Fraudador pode modificar sua estratégia na rodada seguinte.
+
+Para o **Sistema Antifraude**, o surgimento de novos padrões de abuso ou a identificação de tentativas que não foram detectadas pelos controles existentes pode indicar a necessidade de ajustar as regras de validação.
+
+Assim, o resultado de uma rodada pode alterar as estratégias utilizadas na rodada seguinte, caracterizando o processo de adaptação do jogo dinâmico.
 
 ### 3.5 Custo da adaptação
 
-Para o Fraudador, cada adaptação exige mais esforço, dados ou recursos.
+A adaptação possui custos para os dois jogadores.
 
-Para o Sistema Antifraude, controles adicionais aumentam a complexidade e podem gerar falsos positivos ou dificultar o uso do cupom por clientes legítimos.
+Para o **Fraudador**, modificar sua estratégia pode exigir maior esforço, novos dados ou utilização de diferentes recursos para realizar a tentativa.
+
+Para o **Sistema Antifraude**, aumentar a quantidade de sinais analisados e aplicar controles adicionais pode elevar a complexidade da validação e aumentar o risco de falsos positivos ou de dificuldades para usuários legítimos.
+
+Assim, cada jogador precisa considerar não apenas a possibilidade de obter um resultado favorável, mas também o custo associado à adaptação de sua estratégia.
 
 ### 3.6 Possível corrida armamentista
 
-A corrida armamentista surge quando cada novo controle leva o Fraudador a buscar uma nova forma de contorná-lo.
+Uma possível corrida armamentista ocorre quando a adaptação de um jogador provoca uma nova adaptação do outro.
 
-Por exemplo:
+Por exemplo, se o Sistema Antifraude identifica que determinado padrão de tentativa está sendo utilizado para reutilizar o benefício, pode reforçar seus mecanismos de validação. Em resposta, o Fraudador pode modificar sua estratégia para tentar contornar os novos controles.
 
-**controle por conta → novas contas → controle por CPF/telefone → alteração de dados → uso de sinais adicionais.**
+Esse processo pode se repetir ao longo de várias rodadas:
 
-Nesse processo, cada lado reage às decisões do outro. Em jogos atacante-defensor com múltiplos períodos, esse tipo de adaptação sucessiva é parte central da interação estratégica (HAUSKEN; WELBURN; ZHUANG, 2024).
+**tentativa → detecção → reforço dos controles → adaptação da tentativa → nova detecção**
+
+Nesse cenário, nenhum dos jogadores precisa manter uma estratégia fixa. Cada nova informação obtida durante o jogo pode provocar uma alteração na estratégia utilizada na rodada seguinte.
+
+Em jogos atacante-defensor com múltiplos períodos, esse tipo de adaptação sucessiva representa uma característica importante da interação estratégica (HAUSKEN; WELBURN; ZHUANG, 2024).
 
 ### 3.7 Diagrama do ciclo adaptativo
 
