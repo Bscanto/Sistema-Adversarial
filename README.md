@@ -260,21 +260,19 @@ A mesma estrutura de payoffs é aplicada às tentativas simples e adaptativas po
 
 ### 2.5 Melhores respostas
 
-As melhores respostas dependem da decisão tomada pelo outro jogador.
+As melhores respostas dependem da estratégia escolhida pelo outro jogador.
 
 Para o **Fraudador**:
 
-- Se o Sistema Antifraude escolher **B1 – Permitir**, o Fraudador prefere **A1 – Tentar reutilizar**, pois recebe **3**, enquanto desistir gera **1**.
-- Se o Sistema Antifraude escolher **B2 – Bloquear**, o Fraudador prefere **A2 – Desistir**, pois recebe **1**, enquanto tentar reutilizar gera **0**.
-
-Portanto, a melhor decisão do Fraudador depende da escolha do Sistema Antifraude.
+- Se o Sistema Antifraude escolher **B1 – Validação básica**, tanto **A1 – Tentativa simples** quanto **A2 – Tentativa adaptativa** geram payoff **3** para o Fraudador. Portanto, o Fraudador é indiferente entre as duas estratégias.
+- Se o Sistema Antifraude escolher **B2 – Validação reforçada**, tanto **A1 – Tentativa simples** quanto **A2 – Tentativa adaptativa** geram payoff **0** para o Fraudador. Portanto, o Fraudador continua indiferente entre as duas estratégias.
 
 Para o **Sistema Antifraude**:
 
-- Se o Fraudador escolher **A1 – Tentar reutilizar**, o Sistema prefere **B2 – Bloquear**, pois recebe **2**, enquanto permitir gera **0**.
-- Se o Fraudador escolher **A2 – Desistir**, tanto **B1 – Permitir** quanto **B2 – Bloquear** geram payoff **1**. Portanto, nesse caso, o sistema é indiferente entre as duas ações.
+- Se o Fraudador escolher **A1 – Tentativa simples**, o Sistema prefere **B2 – Validação reforçada**, pois recebe **2**, enquanto B1 gera **0**.
+- Se o Fraudador escolher **A2 – Tentativa adaptativa**, o Sistema também prefere **B2 – Validação reforçada**, pois recebe **2**, enquanto B1 gera **0**.
 
-Assim, também para o Sistema Antifraude a melhor resposta depende da ação escolhida pelo Fraudador.
+Assim, **B2 – Validação reforçada é uma estratégia estritamente dominante para o Sistema Antifraude**. Para o Fraudador, não existe uma estratégia dominante estrita, pois A1 e A2 produzem o mesmo payoff em cada possível escolha do Sistema.
 
 ### 2.6 Estratégia dominante
 
