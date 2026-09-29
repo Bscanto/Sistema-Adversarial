@@ -1,0 +1,33 @@
+flowchart TD
+    subgraph Ator["Ator Adversarial"]
+        F["Fraudador"]
+    end
+
+    subgraph Superficie["Superfície de Ataque"]
+        I1["P1 - Interface de Cadastro"]
+        C1["P3 - Validação de Identidade (CPF)"]
+        R1["P2 - Regra: Um cupom por CPF"]
+        C2["P4 - Regra de Negócio do Cupom"]
+    end
+
+    subgraph Sistema["Sistema"]
+        DB[("Banco de Dados")]
+    end
+
+    subgraph Ativos["Ativos a Preservar"]
+        A1["Integridade Financeira do Programa"]
+        A2["Justiça na Distribuição do Benefício"]
+    end
+
+    F -- "1. Cria múltiplas contas" --> I1
+    F -- "2. Insere CPFs de terceiros" --> C1
+    F -- "3. Explora race condition" --> R1
+    F -- "4. Mascara IP/dispositivo" --> C2
+
+    I1 --> C1
+    C1 --> R1
+    R1 --> C2
+    C2 --> DB
+
+    DB --> A1
+    DB --> A2

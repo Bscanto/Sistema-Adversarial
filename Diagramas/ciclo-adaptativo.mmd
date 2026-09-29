@@ -1,0 +1,16 @@
+flowchart LR
+    A["Fraudador realiza tentativa"]
+    B["Sistema avalia"]
+    C["Sistema responde"]
+    D["Fraudador observa"]
+    E["Fraudador adapta"]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> A
+
+    C --> F["Sistema identifica padrão"]
+    F --> G["Sistema adapta controles"]
+    G --> B

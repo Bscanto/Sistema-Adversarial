@@ -551,18 +551,19 @@ Após a correção atômica, o fraudador observaria que requisições simultâne
 
 ## 5. Declaração de Uso de IA Generativa
 
-O uso de IA generativa como apoio à implementação está declarado conforme a seção 6 do enunciado. Todas as escolhas de projeto documentadas aqui foram tomadas pelo grupo com base nas aulas apresentadas, e qualquer integrante pode explicar e justificar cada decisão de projeto.
+Foi utilizada IA generativa como ferramenta de apoio durante a elaboração e revisão deste trabalho.
 
-As principais contribuições do agente foram:
+Seu uso esteve restrito principalmente a:
+- apoio na revisão e organização da documentação;
+- sugestões de melhoria na clareza e coerência do texto;
+- apoio na identificação de inconsistências durante a revisão do modelo apresentado;
+- correção gramatical e de estilo do README.md.
 
--
--
--
-- Correção gramatical e de estilo do README.md
+As decisões de projeto, a definição dos modelos, a análise dos resultados e a versão final do trabalho foram realizadas e validadas pelos integrantes do grupo.
 
 ## 6. Referências
 
-Ver [`fontes/referencias.md`](fontes/referencias.md).
+Ver [`Fontes/referencias.md`](Fontes/referencias.md).
 
 ### Nota sobre os diagramas
 
