@@ -139,8 +139,6 @@ A presença de **objetivos parcialmente conflitantes**, informações observáve
 
 ## 1.6 Delimitação arquitetural
 
-Para fins do Trabalho 2, o cenário pode ser inicialmente representado pelos seguintes componentes:
-
 ```text
 Cliente/Fraudador
        │
