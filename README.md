@@ -415,9 +415,10 @@ flowchart LR
 ```
 ---
 
+
 ## 4. Ameaças e Riscos
 
-**Nota de nomenclatura:** nesta seção, os identificadores A1, A2 e A3 representam cenários de ameaça e não devem ser confundidos com as estratégias A1 – Tentativa simples e A2 – Tentativa adaptativa utilizadas no modelo estratégico das Partes 2 e 3.
+Nesta seção, os identificadores A1, A2 e A3 representam cenários de ameaça e não devem ser confundidos com as estratégias A1 – Tentativa simples e A2 – Tentativa adaptativa utilizadas no modelo estratégico das Partes 2 e 3.
 
 ### 4.1 Pontos de Exploração
 
@@ -466,7 +467,41 @@ flowchart TD
     DB --> A2
 ```
 
-### 4.3 Cenários de Ameaça
+### 4.3 Análise de Ameaças com STRIDE
+
+Após a identificação dos pontos de exploração da superfície de ataque, foi utilizado o modelo **STRIDE** como apoio para classificar possíveis ameaças relacionadas à interação analisada: **cadastro → aplicação do cupom → checkout**.
+
+O STRIDE organiza as ameaças em seis categorias:
+
+- **Spoofing (Falsificação de identidade):** tentativa de se passar por outra identidade;
+- **Tampering (Adulteração):** alteração indevida de dados ou do estado do sistema;
+- **Repudiation (Repúdio):** dificuldade de comprovar posteriormente que determinada ação foi realizada;
+- **Information Disclosure (Divulgação de informação):** exposição indevida de informações;
+- **Denial of Service (Negação de serviço):** comprometimento da disponibilidade de um serviço;
+- **Elevation of Privilege (Elevação de privilégio):** obtenção de uma capacidade ou benefício que o participante não deveria possuir.
+
+Neste trabalho, o STRIDE não substitui os cenários de ameaça ou a avaliação de riscos. Ele é utilizado como uma etapa intermediária entre a **superfície de ataque** e os **cenários concretos de ameaça**, ajudando a verificar sistematicamente quais tipos de ameaça podem estar relacionados aos pontos P1-P4.
+
+| Categoria STRIDE | Aplicação no sistema analisado | Pontos relacionados |
+|---|---|---|
+| **Spoofing** | O fraudador pode tentar aparentar ser um novo cliente utilizando contas distintas ou dados de terceiros para obter novamente o benefício | P1 e P3 |
+| **Tampering** | Uma tentativa pode explorar inconsistências no estado da aplicação do cupom, principalmente quando validação e atualização não ocorrem de maneira atômica | P2 e P4 |
+| **Repudiation** | Registros insuficientes podem dificultar a reconstrução das tentativas e a associação de diferentes ações a uma mesma origem | P1 e P4 |
+| **Information Disclosure** | As respostas do Sistema Antifraude podem revelar indiretamente quais sinais influenciam a aceitação ou rejeição do benefício | P3 e P4 |
+| **Denial of Service** | Um grande volume de tentativas pode consumir recursos dos serviços de cadastro, validação ou aplicação do cupom e afetar usuários legítimos | P1, P2 e P4 |
+| **Elevation of Privilege** | O fraudador pode obter um benefício para o qual não deveria ser elegível ao conseguir ser tratado como cliente de primeira compra | P2 e P4 |
+
+Uma mesma superfície pode estar relacionada a mais de uma categoria STRIDE. Da mesma forma, nem todas as categorias precisam resultar em um cenário prioritário de ameaça.
+
+A utilização do STRIDE estabelece a seguinte relação dentro da análise:
+
+**Ponto de exploração → Categoria STRIDE → Cenário de ameaça → Ativo afetado → Impacto → Risco**
+
+A partir dessa classificação, são detalhados a seguir os cenários considerados mais relevantes para a interação analisada.
+
+---
+
+### 4.4 Cenários de Ameaça
 
 ##### A1 - Race Condition no Resgate do Cupom
 
@@ -486,7 +521,7 @@ Um fraudador pode criar múltiplas contas utilizando serviços de e-mail descart
 
 A OWASP documenta que _multi-accounting_ é um padrão de abuso comum onde uma pessoa cria muitas contas para reivindicar recompensas múltiplas vezes, e que sinais de identidade além do e-mail — como fingerprint de dispositivo, verificação de telefone e KYC —são necessários para mitigar esse vetor (OWASP FOUNDATION, 2026). Li et. al (2025) observam que 82% dos usuários envolvidos em fraudes de promoção eram usuários comuns que também realizavam transações legítimas, o que torna o multi-accounting especialmente difícil de detectar por métodos tradicionais baseados apenas em comportamento individual.
 
-### 4.4 Avaliações de Riscos
+### 4.5 Avaliações de Riscos
 
 | ID | Cenário de Ameaça | Ponto de Exploração | Pressuposto ou Fraqueza | Ativo Afetado | Probabilidade | Impacto | Risco |
 |---|---|---|---|---|---|---|---|
@@ -500,7 +535,7 @@ Escala utilizada:
 - Impacto: 1 = baixo, 2 = médio, 3 = alto
 - Risco = Probabilidade × Impacto
 
-### 4.5 Ameaça Prioritária: A1 - Race Condition
+### 4.6 Ameaça Prioritária: A1 - Race Condition
 
 A ameaça A1 é a de maior prioridade (risco 9). A race condition é explorável com ferramentas simples, não requer identidades falsas ou dados vazados, e o impacto é direto sobre o orçamento promocional. A OWASP classifica _race conditions_ como uma das falhas de lógica de negócio mais críticas porque os controles tradicionais (WAF, autenticação) não as detectam — cada requisição individual é "válida" do ponto de vista sintático (OWASP FOUNDATION, 2026).
 
