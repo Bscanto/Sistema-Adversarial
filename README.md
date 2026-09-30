@@ -215,97 +215,106 @@ O diagrama deve representar:
 
 A decisão central analisada é a interação entre o **Fraudador** e o **Sistema Antifraude** durante uma tentativa de resgate do cupom `PRIMEIRACOMPRA10`.
 
-O **Fraudador** precisa decidir se irá tentar reutilizar o cupom ou se irá desistir da tentativa. O **Sistema Antifraude**, por sua vez, precisa decidir se irá permitir ou bloquear a utilização do cupom.
+O **Fraudador** busca reutilizar um benefício destinado à primeira compra, enquanto o **Sistema Antifraude** busca identificar e impedir utilizações indevidas sem comprometer desnecessariamente a experiência dos usuários legítimos.
 
-Para representar essa situação como um jogo, são considerados dois jogadores e duas ações possíveis para cada um.
+Para representar essa situação como um jogo, são considerados dois jogadores e duas estratégias possíveis para cada um.
 
 - **Jogador A — Fraudador**
-  - **A1 – Tentar reutilizar:** tenta obter novamente o desconto de primeira compra.
-  - **A2 – Desistir:** não tenta reutilizar o cupom.
+  - **A1 – Tentativa simples:** tenta reutilizar o benefício alterando poucos sinais identificadores.
+  - **A2 – Tentativa adaptativa:** tenta reutilizar o benefício modificando múltiplos sinais para dificultar a correlação entre contas.
 
 - **Jogador B — Sistema Antifraude**
-  - **B1 – Permitir:** aceita a utilização do cupom.
-  - **B2 – Bloquear:** identifica a tentativa como suspeita e impede a utilização.
+  - **B1 – Validação básica:** utiliza um conjunto limitado de sinais para verificar a elegibilidade do usuário.
+  - **B2 – Validação reforçada:** correlaciona múltiplos sinais e aplica controles adicionais para identificar tentativas de reutilização.
 
 Os valores utilizados representam a ordem de preferência de cada jogador, sendo **3 o melhor resultado e 0 o pior**. A ordem dos valores em cada célula é **(payoff do Fraudador, payoff do Sistema Antifraude)**.
 
 ### 2.2 Matriz de payoffs
 
-| Fraudador \ Sistema Antifraude | **B1 – Permitir** | **B2 – Bloquear** |
+| Fraudador \ Sistema Antifraude | **B1 – Validação básica** | **B2 – Validação reforçada** |
 |---|---:|---:|
-| **A1 – Tentar reutilizar** | **(3, 0)** | **(0, 2)** |
-| **A2 – Desistir** | **(1, 1)** | **(1, 1)** |
+| **A1 – Tentativa simples** | **(3, 0)** | **(0, 2)** |
+| **A2 – Tentativa adaptativa** | **(3, 0)** | **(0, 2)** |
 
-### 2.3 Explicação das ações
+### 2.3 Explicação das estratégias
 
-A ação **A1 – Tentar reutilizar** representa o comportamento adversarial no qual o fraudador tenta utilizar novamente um benefício que deveria estar disponível apenas uma vez por pessoa física. Isso pode ocorrer por meio da criação de novas contas ou utilização de diferentes identidades e dados de cadastro.
+A estratégia **A1 – Tentativa simples** representa uma tentativa de reutilização do cupom na qual o Fraudador altera poucos sinais identificadores, facilitando sua correlação com utilizações anteriores.
 
-A ação **A2 – Desistir** representa a situação em que o fraudador não continua a tentativa de reutilização do cupom.
+A estratégia **A2 – Tentativa adaptativa** representa uma tentativa mais elaborada, na qual o Fraudador modifica múltiplos sinais para dificultar a identificação da reutilização do benefício.
 
-Para o Sistema Antifraude, **B1 – Permitir** representa a aceitação da utilização do cupom, enquanto **B2 – Bloquear** representa a identificação da tentativa como suspeita e o impedimento do resgate.
+Para o Sistema Antifraude, **B1 – Validação básica** representa uma análise baseada em um conjunto limitado de sinais de elegibilidade.
+
+A estratégia **B2 – Validação reforçada** representa uma análise que correlaciona múltiplos sinais e aplica controles adicionais para aumentar a capacidade de identificação de tentativas de reutilização.
+
+Dessa forma, o modelo representa a interação entre diferentes níveis de sofisticação da tentativa adversarial e diferentes níveis de capacidade de validação do sistema.
 
 ### 2.4 Justificativa dos payoffs
 
 Os valores da matriz representam os benefícios e custos relativos de cada resultado para os dois jogadores.
 
-- **(3, 0):** o fraudador tenta reutilizar o cupom e o sistema permite a operação. Esse é o melhor resultado para o fraudador, pois ele consegue obter novamente o desconto. Para o sistema, o resultado é o pior, pois a regra de um cupom por pessoa é violada.
+- **(3, 0):** o Fraudador consegue reutilizar o benefício diante de uma validação básica. Esse é o melhor resultado para o Fraudador, pois a tentativa é bem-sucedida. Para o Sistema Antifraude, representa o pior resultado, pois a reutilização indevida não foi identificada.
 
-- **(0, 2):** o fraudador tenta reutilizar o cupom, mas o sistema bloqueia a operação. O fraudador não consegue obter o benefício e recebe o menor payoff. Para o sistema, esse é um resultado positivo, pois a tentativa de fraude é impedida.
+- **(0, 2):** o Sistema Antifraude utiliza uma validação reforçada e impede a reutilização do benefício. O Fraudador não consegue obter o desconto e recebe o menor payoff. Para o Sistema, o resultado é positivo porque a tentativa de reutilização foi impedida.
 
-- **(1, 1):** o fraudador desiste da tentativa. Nesse caso, não há obtenção de um novo desconto, mas também não há uma perda adicional causada por uma tentativa bloqueada. Por isso, ambos recebem um payoff intermediário de 1. Como o fraudador já desistiu, a escolha do sistema entre permitir ou bloquear não altera esse resultado.
+A mesma estrutura de payoffs é aplicada às tentativas simples e adaptativas porque, no modelo estático, o resultado considerado é a obtenção ou não do benefício. A diferença de sofisticação entre A1 e A2 será explorada principalmente no modelo estratégico dinâmico, no qual o Fraudador pode adaptar seu comportamento em resposta às medidas adotadas pelo Sistema Antifraude.
 
 ### 2.5 Melhores respostas
 
-As melhores respostas dependem da decisão tomada pelo outro jogador.
+As melhores respostas dependem da estratégia escolhida pelo outro jogador.
 
 Para o **Fraudador**:
 
-- Se o Sistema Antifraude escolher **B1 – Permitir**, o Fraudador prefere **A1 – Tentar reutilizar**, pois recebe **3**, enquanto desistir gera **1**.
-- Se o Sistema Antifraude escolher **B2 – Bloquear**, o Fraudador prefere **A2 – Desistir**, pois recebe **1**, enquanto tentar reutilizar gera **0**.
-
-Portanto, a melhor decisão do Fraudador depende da escolha do Sistema Antifraude.
+- Se o Sistema Antifraude escolher **B1 – Validação básica**, tanto **A1 – Tentativa simples** quanto **A2 – Tentativa adaptativa** geram payoff **3** para o Fraudador. Portanto, o Fraudador é indiferente entre as duas estratégias.
+- Se o Sistema Antifraude escolher **B2 – Validação reforçada**, tanto **A1 – Tentativa simples** quanto **A2 – Tentativa adaptativa** geram payoff **0** para o Fraudador. Portanto, o Fraudador continua indiferente entre as duas estratégias.
 
 Para o **Sistema Antifraude**:
 
-- Se o Fraudador escolher **A1 – Tentar reutilizar**, o Sistema prefere **B2 – Bloquear**, pois recebe **2**, enquanto permitir gera **0**.
-- Se o Fraudador escolher **A2 – Desistir**, tanto **B1 – Permitir** quanto **B2 – Bloquear** geram payoff **1**. Portanto, nesse caso, o sistema é indiferente entre as duas ações.
+- Se o Fraudador escolher **A1 – Tentativa simples**, o Sistema prefere **B2 – Validação reforçada**, pois recebe **2**, enquanto B1 gera **0**.
+- Se o Fraudador escolher **A2 – Tentativa adaptativa**, o Sistema também prefere **B2 – Validação reforçada**, pois recebe **2**, enquanto B1 gera **0**.
 
-Assim, também para o Sistema Antifraude a melhor resposta depende da ação escolhida pelo Fraudador.
+Assim, **B2 – Validação reforçada é uma estratégia estritamente dominante para o Sistema Antifraude**. Para o Fraudador, não existe uma estratégia dominante estrita, pois A1 e A2 produzem o mesmo payoff em cada possível escolha do Sistema.
 
-### 2.6 Estratégia dominante
+### 2.6 Estratégias dominantes
 
-Não existe uma estratégia dominante para o **Fraudador**.
+Uma estratégia é dominante quando proporciona ao jogador um resultado pelo menos tão bom quanto as demais estratégias, independentemente da escolha do adversário.
 
-Quando o Sistema permite a utilização, a melhor escolha do Fraudador é tentar reutilizar o cupom. Porém, quando o Sistema bloqueia, a melhor escolha é desistir.
+No modelo analisado, o **Sistema Antifraude possui uma estratégia dominante**:
 
-Para o **Sistema Antifraude**, bloquear é a melhor resposta quando existe uma tentativa de reutilização. Quando o Fraudador desiste, as duas ações possuem o mesmo payoff.
+- **B2 – Validação reforçada** gera payoff 2 para o Sistema tanto contra A1 quanto contra A2.
+- **B1 – Validação básica** gera payoff 0 contra A1 e também contra A2.
 
-Dessa forma, o modelo não apresenta uma estratégia dominante que seja sempre a melhor independentemente da escolha do outro jogador.
+Portanto, B2 proporciona um resultado estritamente melhor ao Sistema em qualquer situação.
+
+Para o **Fraudador**, A1 e A2 produzem os mesmos payoffs em ambas as escolhas do Sistema. Assim, não existe uma estratégia dominante estrita entre as duas no modelo estático.
+
+Essa característica também mostra uma limitação intencional do modelo estático: a diferença de sofisticação entre uma tentativa simples e uma tentativa adaptativa não altera o payoff diretamente. Essa diferença será explorada com maior importância no modelo estratégico dinâmico.
 
 ### 2.7 Equilíbrio de Nash
 
-Existem dois resultados nos quais nenhum dos jogadores consegue melhorar seu payoff mudando sua ação sozinho:
+Um equilíbrio de Nash ocorre quando nenhum dos jogadores consegue melhorar seu payoff alterando sua estratégia individualmente, mantendo a estratégia do outro jogador fixa.
 
-- **(A1, B1) = (3, 0)**
-- **(A2, B2) = (1, 1)**
+Na matriz proposta, existem dois equilíbrios de Nash em estratégias puras:
 
-No resultado **(A1, B1)**, o Fraudador tenta reutilizar e o Sistema permite. O Fraudador não possui incentivo para mudar sozinho, pois passaria de 3 para 1. Entretanto, é importante observar que o Sistema **possui incentivo para mudar sozinho**, passando de 0 para 2 ao bloquear. Portanto, **(A1, B1) não é um equilíbrio de Nash**.
+- **(A1, B2) = (0,2)**
+- **(A2, B2) = (0,2)**
 
-O resultado **(A2, B2) = (1, 1)** é um equilíbrio de Nash. Se o Fraudador mudar sozinho para tentar reutilizar, seu payoff cairá de 1 para 0. Se o Sistema mudar sozinho de bloquear para permitir, seu payoff permanecerá 1. Portanto, nenhum dos jogadores melhora seu resultado com uma mudança unilateral.
+No equilíbrio **(A1, B2)**, o Fraudador recebe payoff 0 e não melhora ao mudar para A2, pois continuaria recebendo 0. O Sistema recebe payoff 2 e reduziria seu resultado para 0 caso mudasse de B2 para B1.
 
-Assim, o equilíbrio de Nash do modelo é:
+No equilíbrio **(A2, B2)**, ocorre o mesmo: o Fraudador continua com payoff 0 ao mudar para A1, enquanto o Sistema reduziria seu payoff de 2 para 0 caso escolhesse B1.
 
-**(Desistir, Bloquear) = (1, 1)**
+Assim, nos dois equilíbrios, o Sistema utiliza **B2 – Validação reforçada**, enquanto o Fraudador pode escolher entre A1 e A2 sem alterar seu payoff no modelo estático.
 
-### 2.8 Resultado para o sistema e para os usuários legítimos
+Essa característica reforça a diferença entre os modelos estático e dinâmico: no modelo estático, A1 e A2 são equivalentes em termos de payoff; no modelo dinâmico, a capacidade de adaptação do Fraudador poderá produzir diferenças ao longo das rodadas.
 
-O resultado **(Desistir, Bloquear)** é positivo para a proteção do sistema porque a tentativa de reutilização do cupom não ocorre e o Sistema Antifraude mantém a barreira contra o uso indevido do benefício.
+### 2.8 Conclusão do modelo estratégico estático
 
-Para os usuários legítimos, esse resultado contribui para preservar a regra de **um cupom por pessoa física**, evitando que o benefício destinado a novos clientes seja consumido repetidamente por um mesmo fraudador.
+O modelo estratégico estático mostra que, considerando os payoffs definidos, a **Validação reforçada (B2)** é a estratégia dominante do Sistema Antifraude. Independentemente de o Fraudador realizar uma tentativa simples (A1) ou adaptativa (A2), a validação reforçada proporciona ao Sistema um payoff maior.
 
-O modelo também demonstra que a decisão de cada participante está relacionada à decisão do outro. O Fraudador considera se sua tentativa será permitida ou bloqueada, enquanto o Sistema Antifraude precisa reagir ao comportamento do Fraudador.
+Para o Fraudador, A1 e A2 são equivalentes em termos de payoff neste modelo, pois ambas produzem o mesmo resultado diante de cada estratégia do Sistema. Isso significa que o modelo estático não diferencia a efetividade das duas formas de tentativa adversarial.
 
-Dessa forma, a situação pode ser analisada como um jogo estratégico em que as escolhas dos participantes são interdependentes, e não como uma decisão isolada de apenas um dos lados.
+Essa limitação é intencional e motiva a utilização do **modelo estratégico dinâmico**, no qual as interações ocorrem em múltiplas rodadas e os jogadores podem observar resultados anteriores e adaptar suas estratégias.
+
+Assim, o modelo estático estabelece uma situação inicial para a análise, enquanto o modelo dinâmico permite representar a evolução da disputa entre as tentativas do Fraudador e os mecanismos de defesa do Sistema Antifraude.
 
 ---
 
@@ -325,43 +334,65 @@ A interação segue o ciclo:
 
 | Rodada | Ação do Fraudador | Resposta do Sistema | O que se torna observável? | Adaptação seguinte |
 |---|---|---|---|---|
-| **1** | Cria uma nova conta e tenta reutilizar o cupom | O sistema consulta o histórico e recusa o benefício | Apenas criar outra conta pode não ser suficiente | O Fraudador altera outros dados da tentativa |
-| **2** | Utiliza novos dados, IP ou dispositivo | O sistema cruza múltiplos sinais | A validação utiliza mais de um identificador | O Fraudador passa a alterar vários elementos |
-| **3** | Combina diferentes identidades e sinais | O sistema identifica padrões e aplica controles adicionais | O sistema também utiliza o histórico das tentativas | O Fraudador procura outra forma de contornar a defesa |
+| **1** | Realiza uma **tentativa simples (A1)** de reutilização do cupom | O Sistema aplica os controles disponíveis e aceita ou recusa a tentativa | O Fraudador observa o resultado e os sinais que parecem influenciar a decisão | Caso a tentativa seja identificada, o Fraudador pode passar para uma abordagem mais adaptativa |
+| **2** | Realiza uma **tentativa adaptativa (A2)**, modificando múltiplos sinais | O Sistema correlaciona diferentes sinais e responde à nova tentativa | O Sistema observa novos padrões de comportamento | O Sistema pode reforçar ou ajustar seus controles |
+| **3** | O Fraudador realiza uma nova tentativa considerando os resultados anteriores | O Sistema utiliza o histórico acumulado e os controles ajustados | Ambos os jogadores possuem mais informações sobre o comportamento do adversário | Cada lado pode adaptar novamente sua estratégia |
 
 A criação de múltiplas contas para obter repetidamente um benefício é um exemplo de abuso de lógica de negócio. A OWASP recomenda que sistemas de promoções não dependam de um único identificador e considerem diferentes sinais, como dispositivo, endereço IP, telefone e meio de pagamento (OWASP FOUNDATION, 2026).
 
 ### 3.2 Quem observa quem?
 
-A observação ocorre nos dois sentidos. O Fraudador observa respostas como aceitação, rejeição ou bloqueio. O Sistema Antifraude observa cadastros, tentativas de resgate, histórico de utilização e padrões de comportamento.
+A observação ocorre nos dois sentidos e é fundamental para a dinâmica do jogo.
+
+O **Fraudador** observa a resposta do Sistema Antifraude após cada tentativa, como aceitação, rejeição ou bloqueio. A partir dessas informações, pode avaliar se sua estratégia foi eficaz e decidir se deve mantê-la ou adaptá-la na rodada seguinte.
+
+O **Sistema Antifraude** observa os cadastros, as tentativas de resgate, o histórico de utilização e os padrões de comportamento. Essas informações podem ser utilizadas para identificar comportamentos suspeitos e ajustar os controles aplicados nas rodadas seguintes.
+
+Assim, cada rodada pode gerar novas informações para ambos os jogadores, permitindo que suas estratégias sejam modificadas ao longo do tempo.
 
 ### 3.3 O que cada lado consegue modificar?
 
-O Fraudador pode alterar conta, e-mail, telefone, CPF, dispositivo, endereço IP ou meio de pagamento.
+Em cada rodada, os jogadores podem modificar diferentes elementos de suas estratégias.
 
-O Sistema Antifraude pode alterar regras de validação, limites de tentativas e quantidade de sinais analisados.
+O **Fraudador** pode modificar os elementos utilizados em sua tentativa de reutilização do cupom, como dados da conta, informações de contato, dispositivo, endereço IP ou outros sinais considerados relevantes pelo sistema.
+
+O **Sistema Antifraude** pode modificar seus mecanismos de validação, como as regras utilizadas, os limites de tentativas e a quantidade ou combinação de sinais analisados.
+
+Dessa forma, a adaptação de cada jogador ocorre sobre elementos que estão sob seu controle. O Fraudador modifica a forma como realiza a tentativa, enquanto o Sistema modifica a forma como realiza a validação.
 
 ### 3.4 O que dispara uma adaptação?
 
-Para o Fraudador, a adaptação ocorre quando uma tentativa é rejeitada ou quando a resposta indica que determinada estratégia deixou de funcionar.
+A adaptação ocorre quando um jogador obtém novas informações a partir do comportamento do adversário ou do resultado de uma rodada.
 
-Para o Sistema Antifraude, a adaptação ocorre quando surgem novos padrões de abuso ou quando os controles existentes deixam de ser suficientes.
+Para o **Fraudador**, uma rejeição ou bloqueio pode indicar que os controles utilizados pelo Sistema foram suficientes para identificar a tentativa. A partir dessa informação, o Fraudador pode modificar sua estratégia na rodada seguinte.
+
+Para o **Sistema Antifraude**, o surgimento de novos padrões de abuso ou a identificação de tentativas que não foram detectadas pelos controles existentes pode indicar a necessidade de ajustar as regras de validação.
+
+Assim, o resultado de uma rodada pode alterar as estratégias utilizadas na rodada seguinte, caracterizando o processo de adaptação do jogo dinâmico.
 
 ### 3.5 Custo da adaptação
 
-Para o Fraudador, cada adaptação exige mais esforço, dados ou recursos.
+A adaptação possui custos para os dois jogadores.
 
-Para o Sistema Antifraude, controles adicionais aumentam a complexidade e podem gerar falsos positivos ou dificultar o uso do cupom por clientes legítimos.
+Para o **Fraudador**, modificar sua estratégia pode exigir maior esforço, novos dados ou utilização de diferentes recursos para realizar a tentativa.
+
+Para o **Sistema Antifraude**, aumentar a quantidade de sinais analisados e aplicar controles adicionais pode elevar a complexidade da validação e aumentar o risco de falsos positivos ou de dificuldades para usuários legítimos.
+
+Assim, cada jogador precisa considerar não apenas a possibilidade de obter um resultado favorável, mas também o custo associado à adaptação de sua estratégia.
 
 ### 3.6 Possível corrida armamentista
 
-A corrida armamentista surge quando cada novo controle leva o Fraudador a buscar uma nova forma de contorná-lo.
+Uma possível corrida armamentista ocorre quando a adaptação de um jogador provoca uma nova adaptação do outro.
 
-Por exemplo:
+Por exemplo, se o Sistema Antifraude identifica que determinado padrão de tentativa está sendo utilizado para reutilizar o benefício, pode reforçar seus mecanismos de validação. Em resposta, o Fraudador pode modificar sua estratégia para tentar contornar os novos controles.
 
-**controle por conta → novas contas → controle por CPF/telefone → alteração de dados → uso de sinais adicionais.**
+Esse processo pode se repetir ao longo de várias rodadas:
 
-Nesse processo, cada lado reage às decisões do outro. Em jogos atacante-defensor com múltiplos períodos, esse tipo de adaptação sucessiva é parte central da interação estratégica (HAUSKEN; WELBURN; ZHUANG, 2024).
+**tentativa → detecção → reforço dos controles → adaptação da tentativa → nova detecção**
+
+Nesse cenário, nenhum dos jogadores precisa manter uma estratégia fixa. Cada nova informação obtida durante o jogo pode provocar uma alteração na estratégia utilizada na rodada seguinte.
+
+Em jogos atacante-defensor com múltiplos períodos, esse tipo de adaptação sucessiva representa uma característica importante da interação estratégica (HAUSKEN; WELBURN; ZHUANG, 2024).
 
 ### 3.7 Diagrama do ciclo adaptativo
 
@@ -387,6 +418,8 @@ flowchart LR
 ---
 
 ## 4. Ameaças e Riscos
+
+**Nota de nomenclatura:** nesta seção, os identificadores A1, A2 e A3 representam cenários de ameaça e não devem ser confundidos com as estratégias A1 – Tentativa simples e A2 – Tentativa adaptativa utilizadas no modelo estratégico das Partes 2 e 3.
 
 ### 4.1 Pontos de Exploração
 
@@ -451,7 +484,7 @@ A OWASP recomenda que sistemas que dispensam valor não dependam de um único id
 
 ##### A3 - Multi-accounting com E-mails Descartáveis
 
-Um fraudador pode criar mútiplas contas utilizando serviçoes de e-mail descartáveis e SIMs virtuais por meio da interface de cadastro (P1), aproveitando a fraqueza da verificação por e-mail/telefone que não garante que uma pessoa real e distinta está por trás de cada cadastro, causando esgotamento prematuro do orçamento promocional e exclusão de clientes legítimos sobre a integridade financeira e a disponibilidade do benefício.
+Um fraudador pode criar múltiplas contas utilizando serviços de e-mail descartáveis e SIMs virtuais por meio da interface de cadastro (P1), aproveitando a fraqueza da verificação por e-mail/telefone que não garante que uma pessoa real e distinta está por trás de cada cadastro, causando esgotamento prematuro do orçamento promocional e exclusão de clientes legítimos sobre a integridade financeira e a disponibilidade do benefício.
 
 A OWASP documenta que _multi-accounting_ é um padrão de abuso comum onde uma pessoa cria muitas contas para reivindicar recompensas múltiplas vezes, e que sinais de identidade além do e-mail — como fingerprint de dispositivo, verificação de telefone e KYC —são necessários para mitigar esse vetor (OWASP FOUNDATION, 2026). Li et. al (2025) observam que 82% dos usuários envolvidos em fraudes de promoção eram usuários comuns que também realizavam transações legítimas, o que torna o multi-accounting especialmente difícil de detectar por métodos tradicionais baseados apenas em comportamento individual.
 
@@ -518,18 +551,19 @@ Após a correção atômica, o fraudador observaria que requisições simultâne
 
 ## 5. Declaração de Uso de IA Generativa
 
-O uso de IA generativa como apoio à implementação está declarado conforme a seção 6 do enunciado. Todas as escolhas de projeto documentadas aqui foram tomadas pelo grupo com base nas aulas apresentadas, e qualquer integrante pode explicar e justificar cada decisão de projeto.
+Foi utilizada IA generativa como ferramenta de apoio durante a elaboração e revisão deste trabalho.
 
-As principais contribuições do agente foram:
+Seu uso esteve restrito principalmente a:
+- apoio na revisão e organização da documentação;
+- sugestões de melhoria na clareza e coerência do texto;
+- apoio na identificação de inconsistências durante a revisão do modelo apresentado;
+- correção gramatical e de estilo do README.md.
 
--
--
--
-- Correção gramatical e de estilo do README.md
+As decisões de projeto, a definição dos modelos, a análise dos resultados e a versão final do trabalho foram realizadas e validadas pelos integrantes do grupo.
 
 ## 6. Referências
 
-Ver [`fontes/referencias.md`](fontes/referencias.md).
+Ver [`Fontes/referencias.md`](Fontes/referencias.md).
 
 ### Nota sobre os diagramas
 

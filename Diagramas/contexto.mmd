@@ -1,0 +1,20 @@
+graph TD
+    U["Usuário legítimo"]
+    F["Fraudador (cria múltiplas contas)"]
+    P["Plataforma de E-commerce"]
+    C["Serviço de Cadastro / Autenticação"]
+    V["Motor Antifraude (validação do cupom)"]
+    PG["Gateway de Pagamento"]
+    BD[("Base de Cupons e Contas")]
+
+    U -- "cadastra-se e compra" --> C
+    F -- "cria contas em lote / dados forjados" --> C
+    C -- "registra conta" --> BD
+    U -- "aplica cupom no checkout" --> P
+    F -- "aplica cupom repetidamente" --> P
+    P -- "solicita validação" --> V
+    V -- "consulta histórico de uso" --> BD
+    V -- "aprova ou recusa cupom" --> P
+    P -- "processa pagamento" --> PG
+    PG -- "confirma transação" --> P
+    V -. "sinaliza padrão suspeito" .-> C
