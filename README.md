@@ -2,7 +2,12 @@
 
 **Disciplina:** [Engenharia de Software Adversarial]
 
-**Grupo:** []
+**Grupo:** 
+* Bruno Canto
+* Benjamin Rios
+* Paula Erdmann
+* Mariana Rodriges
+* Cassiano Henrique
 
 **Data Entrega:** [06/10/2026]
 
@@ -12,8 +17,10 @@
 2. [Modelo Estratégico Estático](#2-modelo-estratégico-estático)
 3. [Modelo Estratégico Dinâmico](#3-modelo-estratégico-dinâmico)
 4. [Ameaças e Riscos](#4-ameaças-e-riscos)
-5. [Declaração de Uso de IA](#5-declaração-de-uso-de-ia-generativa)
-6. [Referências](#6-referências)
+5. [Contribuições dos Integrantes](#5-contribuições-dos-integrantes)
+6. [Declaração de Uso de IA](#6-declaração-de-uso-de-ia-generativa)
+7. [Referências](#7-referências)
+8. [Nota sobre os Diagramas](#8-nota-sobre-os-diagramas)
 
 ---
 
@@ -29,16 +36,21 @@ O trabalho não analisa o e-commerce em sua totalidade. O escopo está restrito 
 
 cadastro → aplicação do cupom → validação antifraude → checkout
 
-Durante esse fluxo, o sistema recebe informações cadastrais e transacionais, como CPF, e-mail, telefone, dispositivo, endereço de rede, meio de pagamento e histórico de utilização do benefício. A partir dessas informações, o sistema pode tomar uma das seguintes decisões:
+Durante esse fluxo, o sistema pode utilizar informações cadastrais e transacionais, como:
 
-autorizar a aplicação do cupom;
+- CPF;
+- e-mail;
+- telefone;
+- dispositivo;
+- endereço IP;
+- meio de pagamento;
+- histórico de utilização do benefício.
 
-rejeitar a aplicação do cupom;
+Com base nesses sinais, o sistema pode:
 
-solicitar uma verificação adicional.
-
-Esse recorte foi escolhido por representar uma interação suficientemente pequena para análise no Trabalho 1 e posterior implementação no Trabalho 2.
-
+- autorizar a aplicação do cupom;
+- rejeitar a aplicação do cupom;
+- solicitar uma verificação adicional.
 ### 1.2 Atores
 
 | **Ator** | **Objetivo** | **Ações ou capacidades** | **Informações observáveis** | **Restrições ou custos** |
@@ -54,10 +66,11 @@ O principal ativo do sistema é a **integridade financeira do programa promocion
 
 Além disso, o sistema deve preservar:
 
-- **Justiça na distribuição do benefício**, evitando que um mesmo agente obtenha vantagens repetidas;
-- **Confiabilidade da regra de primeira compra**, garantindo que o benefício seja utilizado conforme as condições da promoção;
-- **Experiência dos clientes legítimos**, reduzindo falsos positivos e verificações desnecessárias;
-- **Sustentabilidade econômica da promoção**, evitando perdas financeiras provocadas pelo uso indevido do cupom.
+- **justiça na distribuição do benefício**, evitando que um mesmo agente obtenha a vantagem repetidamente;
+- **confiabilidade da regra de primeira compra**, garantindo o cumprimento das condições da promoção;
+- **experiência dos clientes legítimos**, reduzindo falsos positivos e verificações desnecessárias;
+- **sustentabilidade econômica da promoção**, evitando perdas causadas pelo uso indevido do cupom;
+- **disponibilidade do benefício**, evitando que abusos prejudiquem usuários realmente elegíveis.
 
 Existe, portanto, um compromisso entre **segurança e usabilidade**: controles mais rigorosos podem reduzir a ocorrência de fraude, mas também podem aumentar a fricção enfrentada pelos compradores legítimos.
 
@@ -82,6 +95,10 @@ O sistema assume que a confirmação de **e-mail ou telefone** representa uma ba
 O sistema assume que informações como **dispositivo, endereço de rede, meio de pagamento e padrões de comportamento** podem indicar que diferentes contas pertencem ao mesmo agente.
 
 **Como esse pressuposto pode falhar:** esses sinais podem variar entre diferentes tentativas. Além disso, clientes legítimos podem compartilhar determinadas características, como a mesma rede, endereço ou dispositivo, aumentando o risco de falsos positivos.
+
+
+A OWASP destaca que funcionalidades que concedem valor, como promoções e recompensas, precisam considerar abusos como a criação de múltiplas contas e recomenda utilizar sinais mais estáveis do que apenas o endereço de e-mail (OWASP FOUNDATION, s.d.).
+
 
 ### 1.5 Por que isso é adversarial (e não um erro/acidente)
 
@@ -378,21 +395,8 @@ Para o **Sistema Antifraude**, aumentar a quantidade de sinais analisados e apli
 
 Assim, cada jogador precisa considerar não apenas a possibilidade de obter um resultado favorável, mas também o custo associado à adaptação de sua estratégia.
 
-### 3.6 Possível corrida armamentista
 
-Uma possível corrida armamentista ocorre quando a adaptação de um jogador provoca uma nova adaptação do outro.
-
-Por exemplo, se o Sistema Antifraude identifica que determinado padrão de tentativa está sendo utilizado para reutilizar o benefício, pode reforçar seus mecanismos de validação. Em resposta, o Fraudador pode modificar sua estratégia para tentar contornar os novos controles.
-
-Esse processo pode se repetir ao longo de várias rodadas:
-
-**tentativa → detecção → reforço dos controles → adaptação da tentativa → nova detecção**
-
-Nesse cenário, nenhum dos jogadores precisa manter uma estratégia fixa. Cada nova informação obtida durante o jogo pode provocar uma alteração na estratégia utilizada na rodada seguinte.
-
-Em jogos atacante-defensor com múltiplos períodos, esse tipo de adaptação sucessiva representa uma característica importante da interação estratégica (HAUSKEN; WELBURN; ZHUANG, 2024).
-
-### 3.7 Diagrama do ciclo adaptativo
+### 3.6 Diagrama do ciclo adaptativo
 
 ```mermaid
 flowchart LR
@@ -582,7 +586,23 @@ Após a correção atômica, o fraudador observaria que requisições simultâne
 - **Transparência e reparabilidade:** usuários legítimos falsamente bloqueados precisam de um canal claro para contestar.
 - **Justiça na distribuição:** o objetivo final é garantir que o benefício chegue a quem realmente é um novo cliente.
 
-## 5. Declaração de Uso de IA Generativa
+## 5. Contribuições dos Integrantes
+
+## 5. Contribuições dos Integrantes
+
+O desenvolvimento do trabalho foi dividido entre os cinco integrantes do grupo, buscando distribuir as principais etapas da análise adversarial e manter a integração entre as diferentes partes do relatório.
+
+| Integrante | Contribuição principal |
+|---|---|
+| **Bruno Canto** | Definição da ideia central e escolha do tema do trabalho. Desenvolvimento da **Parte 1 — Descrição do Sistema Adversarial**, incluindo delimitação do sistema, atores, objetivos, ativos, pressupostos e caracterização do cenário adversarial. |
+| **Benjamin Rios** | Desenvolvimento da **Parte 2 — Modelo Estratégico Estático**, incluindo definição dos jogadores e estratégias, matriz de payoffs, melhores respostas, estratégias dominantes e análise dos equilíbrios. |
+| **Paula Erdmann** | Desenvolvimento da **Parte 3 — Modelo Estratégico Dinâmico**, incluindo construção das rodadas adversariais e análise do ciclo de ação, resposta, observação e adaptação. |
+| **Mariana Rodriges** | Desenvolvimento da **Parte 4 — Ameaças e Riscos**, incluindo identificação dos pontos de exploração, cenários de ameaça, classificação STRIDE, avaliação de riscos e análise da ameaça prioritária. |
+| **Cassiano Henrique** | Colaboração no desenvolvimento da **Parte 4 — Ameaças e Riscos** e realização da **revisão geral do README**, verificando organização, clareza, coerência e integração entre as diferentes partes do trabalho. |
+
+Embora as seções tenham sido divididas entre os integrantes, o grupo realizou discussões conjuntas sobre o cenário analisado e revisou a versão final do trabalho, buscando manter consistência entre a descrição do sistema, os modelos estratégicos, as ameaças identificadas e os mecanismos de resposta.
+
+## 6. Declaração de Uso de IA Generativa
 
 Foi utilizada IA generativa como ferramenta de apoio durante a elaboração e revisão deste trabalho.
 
@@ -594,11 +614,11 @@ Seu uso esteve restrito principalmente a:
 
 As decisões de projeto, a definição dos modelos, a análise dos resultados e a versão final do trabalho foram realizadas e validadas pelos integrantes do grupo.
 
-## 6. Referências
+## 7. Referências
 
 Ver [`Fontes/referencias.md`](Fontes/referencias.md).
 
-### Nota sobre os diagramas
+## 8. Nota sobre os diagramas
 
 Os arquivos-fonte editáveis (`.mmd`) estão em `diagramas/`. Para gerar os `.png` exigidos na estrutura de entrega, foi usado:
 
