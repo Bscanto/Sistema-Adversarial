@@ -3,10 +3,10 @@
 **Disciplina:** [Engenharia de Software Adversarial]
 
 **Grupo:** 
-* Bruno Canto
-* Benjamin Rios
-* Paula Erdmann
 * Mariana Rodriges
+* Paula Erdmann
+* Benjamin Rios
+* Bruno Canto
 * Cassiano Henrique
 
 **Data Entrega:** [06/10/2026]
@@ -585,8 +585,6 @@ Após a correção atômica, o fraudador observaria que requisições simultâne
 - **Conversão de clientes legítimos:** a fricção adicionada não pode ser tão alta que usuários genuínos abandonem a compra. A OWASP recomenda que ações que dispensam valor sejam "mais difíceis do que ações que não dispensam", mas a assimetria deve ser calibrada (OWASP FOUNDATION, 2026).
 - **Transparência e reparabilidade:** usuários legítimos falsamente bloqueados precisam de um canal claro para contestar.
 - **Justiça na distribuição:** o objetivo final é garantir que o benefício chegue a quem realmente é um novo cliente.
-
-## 5. Contribuições dos Integrantes
 
 ## 5. Contribuições dos Integrantes
 
