@@ -19,6 +19,13 @@
 
 - Documentação oficial do Mermaid: https://mermaid.js.org
 
+
+## Referências utilizadas no Modelo Estratégico Estático
+
+- LI, Hanyu; HUANG, Wenhan; DUAN, Zhijian; MGUNI, David Henry; SHAO, Kun; WANG, Jun; DENG, Xiaotie. *A survey on algorithms for Nash equilibria in finite normal-form games*. Computer Science Review, v. 51, 2024, art. 100613. DOI: 10.1016/j.cosrev.2023.100613.
+
+- TEWOLDE, Emanuel; CONITZER, Vincent. *Game Transformations That Preserve Nash Equilibria or Best-Response Sets*. Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence (IJCAI-24), 2024, p. 2984–2993. DOI: 10.24963/ijcai.2024/331.
+
 ## Referências utilizadas no Modelo Estratégico Dinâmico
 
 - HAUSKEN, Kjell; WELBURN, Jonathan W.; ZHUANG, Jun. *A Review of Attacker–Defender Games and Cyber Security*. Games, v. 15, n. 4, art. 28, 2024. DOI: 10.3390/g15040028.
