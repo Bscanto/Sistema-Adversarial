@@ -230,8 +230,6 @@ O modelo estratégico estático representa uma situação em que os jogadores es
 
 Nesse contexto, o equilíbrio de Nash constitui uma das principais formas de analisar os resultados de um jogo na forma normal, identificando situações nas quais nenhum jogador possui incentivo para alterar sua estratégia individualmente, considerando fixa a estratégia dos demais jogadores (BRANDL; BRANDT, 2024).
 
-Neste trabalho, o modelo é utilizado para representar, de forma simplificada, a interação entre o **Fraudador** e o **Sistema Antifraude** durante uma tentativa de resgate do cupom. A partir das estratégias disponíveis para cada jogador, são analisados os respectivos payoffs, as melhores respostas, as estratégias dominantes e os possíveis equilíbrios de Nash.
-
 ### 2.1 Decisão central e jogadores
 
 A decisão central analisada é a interação entre o **Fraudador** e o **Sistema Antifraude** durante uma tentativa de resgate do cupom `PRIMEIRACOMPRA10`.
