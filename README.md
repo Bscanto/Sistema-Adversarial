@@ -633,17 +633,3 @@ Os diagramas também estão embutidos como blocos `mermaid` diretamente neste RE
 
 
 ---
-
-## 9. Roteiro da Apresentação (10 minutos)
-
-A apresentação terá **10 minutos**, divididos igualmente entre os cinco integrantes. Cada pessoa terá **2 minutos** para apresentar sua parte. A ordem acompanha a estrutura do trabalho e conduz o público do contexto do problema até a ameaça prioritária e sua resposta.
-
-| Tempo | Integrante | Conteúdo |
-|---|---|---|
-| **0:00–2:00** | **Bruno Canto** | Apresentar o cenário do cupom de primeira compra, o escopo do sistema, os atores e os ativos que precisam ser protegidos. Explicar por que o caso é adversarial. |
-| **2:00–4:00** | **Benjamin Rios** | Explicar o modelo estratégico estático: jogadores, estratégias, matriz de payoffs, melhores respostas e equilíbrio de Nash. |
-| **4:00–6:00** | **Paula Erdmann** | Apresentar o modelo estratégico dinâmico e o ciclo de tentativa, resposta do sistema, observação e adaptação entre rodadas. |
-| **6:00–8:00** | **Mariana Rodriges** | Resumir os pontos de exploração, a classificação STRIDE, os cenários de ameaça e a avaliação dos riscos. |
-| **8:00–10:00** | **Cassiano Henrique** | Apresentar a ameaça prioritária — race condition —, a resposta por operação atômica e os possíveis efeitos sobre clientes legítimos. Encerrar com a principal conclusão do trabalho. |
-
-**Controle do tempo:** cada integrante deve se concentrar nos pontos indicados e concluir sua fala dentro dos 2 minutos, reservando as perguntas para depois da apresentação, se houver tempo.
