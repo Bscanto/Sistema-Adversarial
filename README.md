@@ -3,11 +3,12 @@
 **Disciplina:** [Engenharia de Software Adversarial]
 
 **Grupo (5 integrantes):** 
-* Mariana Rodriges
-* Paula Erdmann
 * Benjamin Rios
 * Bruno Canto
 * Cassiano Henrique
+* Mariana Kemmerich
+* Paula Erdmann
+
 
 **Data Entrega:** [06/10/2026]
 
@@ -235,108 +236,89 @@ Nesse contexto, o equilíbrio de Nash constitui uma das principais formas de ana
 
 ### 2.1 Decisão central e jogadores
 
-A decisão central analisada é a interação entre o **Fraudador** e o **Sistema Antifraude** durante uma tentativa de resgate do cupom `PRIMEIRACOMPRA10`.
+A decisão central analisada é a interação entre o Fraudador e o Sistema Antifraude durante uma tentativa de resgate do cupom PRIMEIRACOMPRA10.
 
-O **Fraudador** busca reutilizar um benefício destinado à primeira compra, enquanto o **Sistema Antifraude** busca identificar e impedir utilizações indevidas sem comprometer desnecessariamente a experiência dos usuários legítimos.
+O Fraudador busca reutilizar um benefício destinado à primeira compra, enquanto o Sistema Antifraude busca identificar e impedir utilizações indevidas sem comprometer desnecessariamente a experiência dos usuários legítimos.
 
 Para representar essa situação como um jogo, são considerados dois jogadores e duas estratégias possíveis para cada um.
 
-- **Jogador A — Fraudador**
-  - **A1 – Tentativa simples:** tenta reutilizar o benefício alterando poucos sinais identificadores.
-  - **A2 – Tentativa adaptativa:** tenta reutilizar o benefício modificando múltiplos sinais para dificultar a correlação entre contas.
+- Jogador A (Fraudador)
+  - A1 (tentativa simples): tenta reutilizar o benefício alterando poucos sinais identificadores.
+  - A2 (tentativa adaptativa): tenta reutilizar o benefício modificando múltiplos sinais para dificultar a correlação entre contas.
 
-- **Jogador B — Sistema Antifraude**
-  - **B1 – Validação básica:** utiliza um conjunto limitado de sinais para verificar a elegibilidade do usuário.
-  - **B2 – Validação reforçada:** correlaciona múltiplos sinais e aplica controles adicionais para identificar tentativas de reutilização.
+- Jogador B (Sistema Antifraude)
+  - B1 (validação básica): utiliza um conjunto limitado de sinais para verificar a elegibilidade do usuário.
+  - B2 (validação reforçada): correlaciona múltiplos sinais e aplica controles adicionais para identificar tentativas de reutilização.
 
-Os valores utilizados representam a ordem de preferência de cada jogador, sendo **3 o melhor resultado e 0 o pior**. A ordem dos valores em cada célula é **(payoff do Fraudador, payoff do Sistema Antifraude)**.
+Os payoffs não são calculados por uma fórmula, mas atribuídos pelos autores para representar, de forma ordinal, a preferência de cada jogador entre os resultados possíveis, sendo 3 o melhor resultado e 0 o pior. Assim, importa a ordem entre os valores, e não a distância entre eles. Em cada célula da matriz, a ordem dos valores é (payoff do Fraudador, payoff do Sistema Antifraude).
 
 ### 2.2 Matriz de payoffs
 
-| Fraudador \ Sistema Antifraude | **B1 – Validação básica** | **B2 – Validação reforçada** |
+| Fraudador \ Sistema Antifraude | B1 (validação básica) | B2 (validação reforçada) |
 |---|---:|---:|
-| **A1 – Tentativa simples** | **(3, 0)** | **(0, 2)** |
-| **A2 – Tentativa adaptativa** | **(3, 0)** | **(0, 2)** |
+| A1 (tentativa simples) | (3, 0) | (0, 2) |
+| A2 (tentativa adaptativa) | (3, 0) | (0, 2) |
 
 ### 2.3 Explicação das estratégias
 
-A estratégia **A1 – Tentativa simples** representa uma tentativa de reutilização do cupom na qual o Fraudador altera poucos sinais identificadores, facilitando sua correlação com utilizações anteriores.
-
-A estratégia **A2 – Tentativa adaptativa** representa uma tentativa mais elaborada, na qual o Fraudador modifica múltiplos sinais para dificultar a identificação da reutilização do benefício.
-
-Para o Sistema Antifraude, **B1 – Validação básica** representa uma análise baseada em um conjunto limitado de sinais de elegibilidade.
-
-A estratégia **B2 – Validação reforçada** representa uma análise que correlaciona múltiplos sinais e aplica controles adicionais para aumentar a capacidade de identificação de tentativas de reutilização.
-
-Dessa forma, o modelo representa a interação entre diferentes níveis de sofisticação da tentativa adversarial e diferentes níveis de capacidade de validação do sistema.
+Os payoffs não são calculados por uma fórmula, mas atribuídos pelos autores para representar, de forma ordinal, a preferência de cada jogador entre os resultados possíveis. Assim, importa a ordem entre os valores, e não a distância entre eles. A escala vai de 0 a 3 e tem o mesmo significado para os dois jogadores: 3 indica que o jogador alcança seu objetivo e ainda obtém uma vantagem sobre o adversário; 2 indica que o objetivo é preservado, mas sem vantagem adicional (um empate); 1 indica uma perda parcial, em que o objetivo é comprometido apenas em parte; e 0 indica o pior resultado, em que o objetivo é perdido por completo. Como a tentativa de resgate termina apenas de duas formas, com o benefício obtido ou impedido, a matriz utiliza somente alguns desses níveis. Em cada célula da matriz, a ordem dos valores é (payoff do Fraudador, payoff do Sistema Antifraude).
 
 ### 2.4 Justificativa dos payoffs
 
-Os valores da matriz representam os benefícios e custos relativos de cada resultado para os dois jogadores.
+Os valores da matriz representam os benefícios e prejuízos relativos de cada resultado para os dois jogadores.
 
-- **(3, 0):** o Fraudador consegue reutilizar o benefício diante de uma validação básica. Esse é o melhor resultado para o Fraudador, pois a tentativa é bem-sucedida. Para o Sistema Antifraude, representa o pior resultado, pois a reutilização indevida não foi identificada.
+- (3, 0): o Fraudador consegue reutilizar o benefício diante de uma validação básica. Esse é o melhor resultado para o Fraudador, pois a tentativa é bem-sucedida e ele obtém uma vantagem. Para o Sistema Antifraude, é o pior resultado, pois a reutilização indevida não foi identificada.
 
-- **(0, 2):** o Sistema Antifraude utiliza uma validação reforçada e impede a reutilização do benefício. O Fraudador não consegue obter o desconto e recebe o menor payoff. Para o Sistema, o resultado é positivo porque a tentativa de reutilização foi impedida.
+- (0, 2): o Sistema Antifraude utiliza uma validação reforçada e impede a reutilização do benefício. O Fraudador não consegue obter o desconto e recebe o menor payoff. Para o Sistema, o resultado é positivo, mas não máximo: ao bloquear a tentativa, ele apenas empata com o adversário, isto é, evita o prejuízo e mantém a situação esperada, sem obter uma vantagem adicional sobre o Fraudador. Por isso o payoff é 2 e não 3. O valor 3 ficaria reservado a um resultado em que o Sistema, além de bloquear, obtivesse um ganho extra (como desarticular uma rede de contas fraudulentas), o que não ocorre neste cenário.
 
-A mesma estrutura de payoffs é aplicada às tentativas simples e adaptativas porque, no modelo estático, o resultado considerado é a obtenção ou não do benefício. A diferença de sofisticação entre A1 e A2 será explorada principalmente no modelo estratégico dinâmico, no qual o Fraudador pode adaptar seu comportamento em resposta às medidas adotadas pelo Sistema Antifraude.
+A mesma estrutura de payoffs é aplicada às tentativas simples e adaptativas porque, neste cenário, o resultado considerado é a obtenção ou não do benefício.
 
 ### 2.5 Melhores respostas
 
 As melhores respostas dependem da estratégia escolhida pelo outro jogador.
 
-Para o **Fraudador**:
+Para o Fraudador:
 
-- Se o Sistema Antifraude escolher **B1 – Validação básica**, tanto **A1 – Tentativa simples** quanto **A2 – Tentativa adaptativa** geram payoff **3** para o Fraudador. Portanto, o Fraudador é indiferente entre as duas estratégias.
-- Se o Sistema Antifraude escolher **B2 – Validação reforçada**, tanto **A1 – Tentativa simples** quanto **A2 – Tentativa adaptativa** geram payoff **0** para o Fraudador. Portanto, o Fraudador continua indiferente entre as duas estratégias.
+- Se o Sistema Antifraude escolher B1, tanto A1 quanto A2 geram payoff 3 para o Fraudador. Portanto, o Fraudador é indiferente entre as duas estratégias.
+- Se o Sistema Antifraude escolher B2, tanto A1 quanto A2 geram payoff 0 para o Fraudador. Portanto, o Fraudador continua indiferente entre as duas estratégias.
 
-Para o **Sistema Antifraude**:
+Para o Sistema Antifraude:
 
-- Se o Fraudador escolher **A1 – Tentativa simples**, o Sistema prefere **B2 – Validação reforçada**, pois recebe **2**, enquanto B1 gera **0**.
-- Se o Fraudador escolher **A2 – Tentativa adaptativa**, o Sistema também prefere **B2 – Validação reforçada**, pois recebe **2**, enquanto B1 gera **0**.
+- Se o Fraudador escolher A1, o Sistema prefere B2, pois recebe 2, enquanto B1 gera 0.
+- Se o Fraudador escolher A2, o Sistema também prefere B2, pois recebe 2, enquanto B1 gera 0.
 
-Assim, **B2 – Validação reforçada é uma estratégia estritamente dominante para o Sistema Antifraude**. Para o Fraudador, não existe uma estratégia dominante estrita, pois A1 e A2 produzem o mesmo payoff em cada possível escolha do Sistema.
+Assim, B2 é a melhor resposta do Sistema a qualquer estratégia do Fraudador. Para o Fraudador, A1 e A2 são igualmente boas em cada situação.
 
 ### 2.6 Estratégias dominantes
 
-Uma estratégia é dominante quando proporciona ao jogador um resultado pelo menos tão bom quanto as demais estratégias, independentemente da escolha do adversário.
+Uma estratégia é estritamente dominante quando proporciona ao jogador um resultado melhor do que qualquer outra estratégia, independentemente da escolha do adversário.
 
-No modelo analisado, o **Sistema Antifraude possui uma estratégia dominante**:
+O Sistema Antifraude possui uma estratégia estritamente dominante: B2 gera payoff 2 tanto contra A1 quanto contra A2, enquanto B1 gera payoff 0 nos dois casos.
 
-- **B2 – Validação reforçada** gera payoff 2 para o Sistema tanto contra A1 quanto contra A2.
-- **B1 – Validação básica** gera payoff 0 contra A1 e também contra A2.
-
-Portanto, B2 proporciona um resultado estritamente melhor ao Sistema em qualquer situação.
-
-Para o **Fraudador**, A1 e A2 produzem os mesmos payoffs em ambas as escolhas do Sistema. Assim, não existe uma estratégia dominante estrita entre as duas no modelo estático.
-
-Essa característica também mostra uma limitação intencional do modelo estático: a diferença de sofisticação entre uma tentativa simples e uma tentativa adaptativa não altera o payoff diretamente. Essa diferença será explorada com maior importância no modelo estratégico dinâmico.
+Para o Fraudador, não existe estratégia estritamente dominante, pois A1 e A2 produzem exatamente os mesmos payoffs diante de cada escolha do Sistema.
 
 ### 2.7 Equilíbrio de Nash
 
-Um equilíbrio de Nash ocorre quando nenhum dos jogadores consegue melhorar seu payoff alterando sua estratégia individualmente, mantendo a estratégia do outro jogador fixa.
+Um equilíbrio de Nash ocorre quando nenhum dos jogadores consegue melhorar seu payoff alterando sua estratégia individualmente, mantendo a estratégia do outro fixa.
 
 Na matriz proposta, existem dois equilíbrios de Nash em estratégias puras:
 
-- **(A1, B2) = (0,2)**
-- **(A2, B2) = (0,2)**
+- (A1, B2) = (0, 2)
+- (A2, B2) = (0, 2)
 
-No equilíbrio **(A1, B2)**, o Fraudador recebe payoff 0 e não melhora ao mudar para A2, pois continuaria recebendo 0. O Sistema recebe payoff 2 e reduziria seu resultado para 0 caso mudasse de B2 para B1.
+No equilíbrio (A1, B2), o Fraudador recebe payoff 0 e não melhora ao mudar para A2, pois continuaria recebendo 0. O Sistema recebe payoff 2 e reduziria seu resultado para 0 caso mudasse de B2 para B1.
 
-No equilíbrio **(A2, B2)**, ocorre o mesmo: o Fraudador continua com payoff 0 ao mudar para A1, enquanto o Sistema reduziria seu payoff de 2 para 0 caso escolhesse B1.
+No equilíbrio (A2, B2), ocorre o mesmo: o Fraudador continua com payoff 0 ao mudar para A1, enquanto o Sistema reduziria seu payoff de 2 para 0 caso escolhesse B1.
 
-Assim, nos dois equilíbrios, o Sistema utiliza **B2 – Validação reforçada**, enquanto o Fraudador pode escolher entre A1 e A2 sem alterar seu payoff no modelo estático.
-
-Essa característica reforça a diferença entre os modelos estático e dinâmico: no modelo estático, A1 e A2 são equivalentes em termos de payoff; no modelo dinâmico, a capacidade de adaptação do Fraudador poderá produzir diferenças ao longo das rodadas.
+Os resultados com B1 não são equilíbrios, pois nessas células o Sistema melhoraria ao mudar para B2. Assim, em ambos os equilíbrios o Sistema utiliza B2, enquanto o Fraudador pode escolher entre A1 e A2 sem alterar seu payoff.
 
 ### 2.8 Conclusão do modelo estratégico estático
 
-O modelo estratégico estático mostra que, considerando os payoffs definidos, a **Validação reforçada (B2)** é a estratégia dominante do Sistema Antifraude. Independentemente de o Fraudador realizar uma tentativa simples (A1) ou adaptativa (A2), a validação reforçada proporciona ao Sistema um payoff maior.
+Considerando os payoffs definidos, a validação reforçada (B2) é a estratégia dominante do Sistema Antifraude: independentemente de o Fraudador realizar uma tentativa simples (A1) ou adaptativa (A2), B2 proporciona ao Sistema um payoff maior. Para o Fraudador, A1 e A2 são equivalentes, pois produzem o mesmo resultado diante de cada estratégia do Sistema.
 
-Para o Fraudador, A1 e A2 são equivalentes em termos de payoff neste modelo, pois ambas produzem o mesmo resultado diante de cada estratégia do Sistema. Isso significa que o modelo estático não diferencia a efetividade das duas formas de tentativa adversarial.
+Os equilíbrios de Nash são (A1, B2) e (A2, B2), nos quais o Sistema utiliza a validação reforçada e o Fraudador não obtém o benefício.
 
-Essa limitação é intencional e motiva a utilização do **modelo estratégico dinâmico**, no qual as interações ocorrem em múltiplas rodadas e os jogadores podem observar resultados anteriores e adaptar suas estratégias.
-
-Assim, o modelo estático estabelece uma situação inicial para a análise, enquanto o modelo dinâmico permite representar a evolução da disputa entre as tentativas do Fraudador e os mecanismos de defesa do Sistema Antifraude.
+A seguir, a interação é analisada em múltiplas rodadas, nas quais os jogadores observam os resultados anteriores e adaptam suas estratégias.
 
 ---
 
