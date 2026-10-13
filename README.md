@@ -598,6 +598,8 @@ Seu uso esteve restrito principalmente a:
 - sugestões de melhoria na clareza e coerência do texto;
 - apoio na identificação de inconsistências durante a revisão do modelo apresentado;
 - correção gramatical e de estilo do README.md.
+- apoio na criação dos slides de apresentação
+- apoio na gravação video de apresentação 
 
 As decisões de projeto, a definição dos modelos, a análise dos resultados e a versão final do trabalho foram realizadas e validadas pelos integrantes do grupo.
 
