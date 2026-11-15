@@ -1,116 +1,86 @@
+import unittest
+
 from simulation import Ambiente
-from agents import AgenteFraudador, AgenteDefensor
+from runner import executar_simulacao
 
 
-ambiente = Ambiente(seed=42)
+class AgenteTeste:
+    """Agente simples utilizado para testar o orquestrador."""
 
-fraudador = AgenteFraudador()
-defensor = AgenteDefensor()
+    def __init__(self, estrategia):
+        self.estrategia = estrategia
 
-TOTAL_RODADAS = 10
-
-print("=== SISTEMA ADVERSARIAL ===")
-
-for rodada in range(1, TOTAL_RODADAS + 1):
-
-    ataque = fraudador.escolher_acao(ambiente.historico)
-    defesa = defensor.escolher_acao(ambiente.historico)
-
-    resultado = ambiente.processar(
-        ataque,
-        defesa,
-        id_cliente=f"CPF-{rodada:03d}"
-    )
-
-    print(f"\n--- Rodada {rodada} ---")
-
-    print(f"Fraudador: {ataque}")
-    print(f"Motivo: {fraudador.motivo}")
-
-    print(f"Defensor: {defesa}")
-    print(f"Motivo: {defensor.motivo}")
-
-    print(f"Probabilidade de sucesso: {resultado.probabilidade_sucesso:.0%}")
-    print(f"Cupom resgatado: {resultado.cupom_resgatado}")
-    print(f"Fraude detectada: {resultado.fraude_detectada}")
-
-    print(f"Custo operacional: {resultado.custo_operacional}")
-    print(f"Custo de fricção: {resultado.custo_friccao}")
-    print(f"Custo da defesa: {resultado.custo_sistema}")
-
-    print(f"Perda por fraude: {resultado.perda_por_fraude}")
-    print(f"Utilidade fraudador: {resultado.utilidade_fraudador}")
-    print(f"Utilidade defensor: {resultado.utilidade_defensor}")
+    def escolher_acao(self, historico):
+        return self.estrategia
 
 
-# Consolidação dos resultados
+class TestAmbiente(unittest.TestCase):
 
-historico = ambiente.historico
+    def test_reutilizacao_cupom(self):
+        ambiente = Ambiente(seed=42)
 
-sucessos = sum(
-    r["resultado"].cupom_resgatado
-    for r in historico
-)
+        primeiro = ambiente.processar(
+            "A1", "B1", "cliente_teste"
+        )
 
-bloqueios = sum(
-    r["resultado"].fraude_detectada
-    for r in historico
-)
+        segundo = ambiente.processar(
+            "A1", "B1", "cliente_teste"
+        )
 
-custo_operacional = sum(
-    r["resultado"].custo_operacional
-    for r in historico
-)
+        self.assertTrue(primeiro.cupom_resgatado)
+        self.assertTrue(segundo.cupom_ja_utilizado)
+        self.assertFalse(segundo.cupom_resgatado)
 
-custo_friccao = sum(
-    r["resultado"].custo_friccao
-    for r in historico
-)
+    def test_estrategia_invalida(self):
+        ambiente = Ambiente()
 
-custo_defesas = sum(
-    r["resultado"].custo_sistema
-    for r in historico
-)
+        with self.assertRaises(ValueError):
+            ambiente.processar("A3", "B1")
 
-perdas_fraude = sum(
-    r["resultado"].perda_por_fraude
-    for r in historico
-)
+    def test_reprodutibilidade(self):
+        ambiente1 = Ambiente(seed=42)
+        ambiente2 = Ambiente(seed=42)
 
-beneficio_fraudador = sum(
-    r["resultado"].beneficio_fraudador
-    for r in historico
-)
+        resultado1 = ambiente1.processar("A1", "B1")
+        resultado2 = ambiente2.processar("A1", "B1")
 
-beneficio_defensor = sum(
-    r["resultado"].beneficio_defensor
-    for r in historico
-)
+        self.assertEqual(resultado1, resultado2)
 
-utilidade_fraudador = sum(
-    r["resultado"].utilidade_fraudador
-    for r in historico
-)
 
-utilidade_defensor = sum(
-    r["resultado"].utilidade_defensor
-    for r in historico
-)
+class TestOrquestrador(unittest.TestCase):
 
-print("\n=== RESULTADO FINAL ===")
+    def test_execucao_multiplas_rodadas(self):
+        ambiente = Ambiente(seed=42)
 
-print(f"Total de rodadas: {len(historico)}")
-print(f"Fraudes bem-sucedidas: {sucessos}")
-print(f"Fraudes bloqueadas: {bloqueios}")
+        fraudador = AgenteTeste("A1")
+        defensor = AgenteTeste("B1")
 
-print("\nCustos do sistema:")
-print(f"Custo operacional: {custo_operacional}")
-print(f"Custo de fricção: {custo_friccao}")
-print(f"Custo das defesas: {custo_defesas}")
-print(f"Perdas por fraude: {perdas_fraude}")
+        resumo = executar_simulacao(
+            ambiente=ambiente,
+            fraudador=fraudador,
+            defensor=defensor,
+            total_rodadas=5,
+            exibir=False,
+        )
 
-print("\nResultados econômicos:")
-print(f"Benefício fraudador: {beneficio_fraudador}")
-print(f"Benefício defensor: {beneficio_defensor}")
-print(f"Utilidade fraudador: {utilidade_fraudador}")
-print(f"Utilidade defensor: {utilidade_defensor}")
+        self.assertEqual(len(ambiente.historico), 5)
+        self.assertEqual(resumo["total_rodadas"], 5)
+
+    def test_quantidade_invalida_rodadas(self):
+        ambiente = Ambiente(seed=42)
+
+        fraudador = AgenteTeste("A1")
+        defensor = AgenteTeste("B1")
+
+        with self.assertRaises(ValueError):
+            executar_simulacao(
+                ambiente,
+                fraudador,
+                defensor,
+                total_rodadas=0,
+                exibir=False,
+            )
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
