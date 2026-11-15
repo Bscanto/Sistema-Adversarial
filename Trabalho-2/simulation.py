@@ -1,3 +1,4 @@
+import random
 from dataclasses import dataclass
 
 
@@ -10,12 +11,12 @@ class Resultado:
 
 
 class Ambiente:
-    def __init__(self):
+    def __init__(self, seed=42):
         self.historico = []
         self.cupom_ja_utilizado = False
+        self.random = random.Random(seed)
 
     def processar(self, ataque: str, defesa: str) -> Resultado:
-        # Probabilidade de sucesso da tentativa
         chances = {
             ("A1", "B1"): 0.70,
             ("A1", "B2"): 0.10,
@@ -23,7 +24,6 @@ class Ambiente:
             ("A2", "B2"): 0.35,
         }
 
-        # Custos da defesa
         custos = {
             "B1": 1.0,
             "B2": 3.0,
@@ -31,18 +31,14 @@ class Ambiente:
 
         sucesso = chances[(ataque, defesa)]
 
-        # Simulação determinística inicial
-        # Posteriormente utilizaremos aleatoriedade controlada
-        resgatado = sucesso >= 0.50
-
-        fraude = resgatado
-        custo = custos[defesa]
+        # Sorteio probabilístico
+        resgatado = self.random.random() < sucesso
 
         resultado = Resultado(
             cupom_resgatado=resgatado,
-            fraude_detectada=not fraude,
-            custo_sistema=custo,
-            beneficio_fraudador=10.0 if fraude else 0.0,
+            fraude_detectada=not resgatado,
+            custo_sistema=custos[defesa],
+            beneficio_fraudador=10.0 if resgatado else 0.0,
         )
 
         self.historico.append({
