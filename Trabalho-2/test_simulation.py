@@ -1,30 +1,61 @@
 from simulation import Ambiente
+from agents import AgenteFraudador, AgenteDefensor
+
 
 ambiente = Ambiente(seed=42)
 
-combinacoes = [
-    ("A1", "B1"),
-    ("A1", "B2"),
-    ("A2", "B1"),
-    ("A2", "B2"),
-]
+fraudador = AgenteFraudador()
+defensor = AgenteDefensor()
 
-for ataque, defesa in combinacoes:
-    sucessos = 0
-    rodadas = 100
+TOTAL_RODADAS = 10
 
-    for _ in range(rodadas):
-        resultado = ambiente.processar(ataque, defesa)
+print("=== SISTEMA ADVERSARIAL ===")
 
-        if resultado.cupom_resgatado:
-            sucessos += 1
+for rodada in range(1, TOTAL_RODADAS + 1):
 
-    percentual = sucessos / rodadas * 100
+    ataque = fraudador.escolher_acao(ambiente.historico)
+    defesa = defensor.escolher_acao(ambiente.historico)
 
-    print(
-        f"{ataque} vs {defesa}: "
-        f"{sucessos}/{rodadas} sucessos "
-        f"({percentual:.1f}%)"
-    )
+    resultado = ambiente.processar(ataque, defesa)
 
-print(f"\nTotal de rodadas: {len(ambiente.historico)}")
+    print(f"\n--- Rodada {rodada} ---")
+
+    print(f"Fraudador: {ataque}")
+    print(f"Motivo: {fraudador.motivo}")
+
+    print(f"Defensor: {defesa}")
+    print(f"Motivo: {defensor.motivo}")
+
+    print(f"Cupom resgatado: {resultado.cupom_resgatado}")
+    print(f"Fraude detectada: {resultado.fraude_detectada}")
+    print(f"Custo do sistema: {resultado.custo_sistema}")
+    print(f"Benefício do fraudador: {resultado.beneficio_fraudador}")
+
+
+# Resumo da simulação
+sucessos = sum(
+    rodada["resultado"].cupom_resgatado
+    for rodada in ambiente.historico
+)
+
+deteccoes = sum(
+    rodada["resultado"].fraude_detectada
+    for rodada in ambiente.historico
+)
+
+custo_total = sum(
+    rodada["resultado"].custo_sistema
+    for rodada in ambiente.historico
+)
+
+beneficio_total = sum(
+    rodada["resultado"].beneficio_fraudador
+    for rodada in ambiente.historico
+)
+
+print("\n=== RESULTADO FINAL ===")
+print(f"Total de rodadas: {TOTAL_RODADAS}")
+print(f"Fraudes bem-sucedidas: {sucessos}")
+print(f"Fraudes bloqueadas: {deteccoes}")
+print(f"Custo total do sistema: {custo_total}")
+print(f"Benefício total do fraudador: {beneficio_total}")
