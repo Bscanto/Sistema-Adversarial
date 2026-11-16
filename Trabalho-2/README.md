@@ -135,13 +135,79 @@ python test_simulation.py
 
 ## Estado atual
 
+### Agente fraudador com Agno (integrante 2)
+
+`fraudador_agno.py` implementa `AgenteFraudadorAgno`, compatível com
+`escolher_acao(historico) -> str` do runner. O modelo retorna uma
+`DecisaoFraudador` validada pelo Pydantic: estratégia `A1` ou `A2` e motivo
+não vazio. A implementação usa `Agent.run` e `output_schema` conforme a
+[documentação do Agno](https://docs.agno.com/models/providers/native/anthropic/overview).
+
+O objetivo é maximizar o benefício acumulado. O agente recebe o histórico de
+suas ações, resgates e utilidades; não recebe a defesa, probabilidades internas
+ou regras do defensor. As instruções propõem explorar A1 inicialmente e avaliar
+manutenção ou mudança a partir dos resultados. A decisão posterior é do modelo,
+sem sequência fixa de rodadas. A memória é o histórico fornecido pelo ambiente.
+Cada nova conta na demonstração pertence ao mesmo fraudador fictício.
+
+Instale as dependências em um ambiente virtual (Python 3.11 ou superior),
+a partir de `Trabalho-2`:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+export ANTHROPIC_API_KEY="sua-chave"
+python demo_fraudador.py --rodadas 10 --seed 42
+```
+
+A execução usa a API da Anthropic (Claude) e pode gerar cobrança. Configure a chave apenas
+no ambiente local; não a inclua nos commits. O modelo padrão é `claude-haiku-4-5-20251001`;
+para trocar, use `--modelo` ou a variável `FRAUDADOR_MODEL` com um modelo
+compatível com saída estruturada. Arquivos `.env` não são carregados automaticamente.
+
+`demo_fraudador.py` conecta o fraudador ao defensor baseado em regras usando
+o runner existente. Salva em `evidencias/fraudador.json` as observações, decisões,
+justificativas, mudanças de estratégia, resultados e resumo. Use `--saida` para
+guardar execuções em arquivos distintos. A pasta de evidências é ignorada pelo
+Git; selecione e revise os resultados que serão incluídos na entrega.
+
+Para integrar o agente em outro orquestrador:
+
+```python
+from fraudador_agno import AgenteFraudadorAgno
+
+fraudador = AgenteFraudadorAgno()
+# Passe fraudador para executar_simulacao junto do ambiente e do defensor.
+```
+
+Para executar todos os testes, incluindo os novos testes sem chamadas à API:
+
+```bash
+python -m unittest discover -v
+```
+
+Os testes usam um substituto controlado do modelo para verificar transmissão
+do histórico, mudança após bloqueio, validação, isolamento de informações e
+propagação de falhas. Eles não comprovam a adaptação do LLM real. Para essa
+evidência, execute a demonstração e examine se o motivo cita resultados anteriores
+e se a escolha muda em resposta a eles. Não há garantia de mudança em toda execução;
+a seed controla apenas o ambiente, não as respostas do modelo.
+
+Limitações: A2 não tem custo adicional e possui maior chance de sucesso no
+ambiente atual, podendo levar à estabilização nessa escolha. O defensor ainda
+usa regras. O histórico completo cresce a cada rodada e este protótipo destina-se
+a execuções curtas. Erros de API ou respostas inválidas interrompem a execução,
+sem substituir silenciosamente a IA por regras; o arquivo é salvo somente após
+a conclusão das rodadas.
+
 O ambiente de simulação, os primeiros agentes baseados em regras e o orquestrador já foram implementados.
 
 Os testes automatizados foram executados com sucesso, e uma simulação de dez rodadas demonstrou a adaptação das estratégias ao longo da interação.
 
 ## Próximos passos
 
-1. **Integrar o Agno:** substituir as decisões baseadas somente em regras por agentes que utilizem modelos de IA para escolher suas estratégias com base no histórico.
+1. **Completar a integração com Agno:** implementar o defensor com IA e conectá-lo ao fraudador já disponível.
 2. **Testar a integração:** verificar se os agentes conseguem interagir durante várias rodadas, observar os resultados anteriores e modificar suas decisões.
 3. **Realizar experimentos:** executar diferentes simulações e comparar os resultados dos agentes baseados em regras com os agentes que utilizam IA.
 4. **Finalizar a documentação e a demonstração:** organizar os resultados e preparar uma execução completa do sistema para apresentação.
