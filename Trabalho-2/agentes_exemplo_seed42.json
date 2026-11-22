@@ -1,0 +1,1228 @@
+{
+  "status": "concluida",
+  "rodadas_solicitadas": 10,
+  "seed": 42,
+  "fraudador": "agno",
+  "defensor": "agno",
+  "modelos": {
+    "fraudador": "claude-haiku-4-5-20251001",
+    "defensor": "claude-haiku-4-5-20251001"
+  },
+  "resumo": {
+    "total_rodadas": 10,
+    "fraudes_bem_sucedidas": 7,
+    "fraudes_bloqueadas": 3,
+    "custo_operacional": 16.0,
+    "custo_friccao": 24.0,
+    "custo_defesas": 40.0,
+    "perdas_fraude": 70.0,
+    "beneficio_fraudador": 70.0,
+    "beneficio_defensor": 30.0,
+    "utilidade_fraudador": 70.0,
+    "utilidade_defensor": -80.0
+  },
+  "decisoes_fraudador": [
+    {
+      "rodada": 1,
+      "estrategia": "A1",
+      "motivo": "Sem observações anteriores, inicio com A1 para estabelecer uma referência de desempenho e ganhar informações sobre como o sistema responde.",
+      "estrategia_anterior": null,
+      "mudou_estrategia": false,
+      "observacoes": []
+    },
+    {
+      "rodada": 2,
+      "estrategia": "A1",
+      "motivo": "A1 foi bem-sucedida na rodada 1 com cupom resgatado e utilidade de 10.0. Manterei esta estratégia enquanto continuar gerando resultados positivos, explorandos ganhos consistentes antes de considerar alternativas.",
+      "estrategia_anterior": "A1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        }
+      ]
+    },
+    {
+      "rodada": 3,
+      "estrategia": "A1",
+      "motivo": "A1 obteve sucesso em ambas as rodadas anteriores (100% de taxa de resgate com utilidade de 10.0 cada). Mantém-se a estratégia bem-sucedida até observar bloqueios ou mudanças significativas na defesa do adversário.",
+      "estrategia_anterior": "A1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        }
+      ]
+    },
+    {
+      "rodada": 4,
+      "estrategia": "A1",
+      "motivo": "A1 foi bem-sucedida em todas as 3 rodadas anteriores, com resgate confirmado e utilidade de 10.0 em cada tentativa. Mantendo a estratégia que demonstra consistência de sucesso.",
+      "estrategia_anterior": "A1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        }
+      ]
+    },
+    {
+      "rodada": 5,
+      "estrategia": "A1",
+      "motivo": "A1 apresentou 100% de sucesso em 4 rodadas consecutivas, com resgate de cupom confirmado e utilidade constante de 10.0 em cada tentativa. A estratégia demonstra consistência e eficácia comprovada. Sem evidência de bloqueios ou degradação de desempenho, manter A1 é a decisão racional para maximizar utilidade acumulada.",
+      "estrategia_anterior": "A1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        }
+      ]
+    },
+    {
+      "rodada": 6,
+      "estrategia": "A2",
+      "motivo": "A1 foi bem-sucedida em 4 rodadas consecutivas (utilidade 10.0 cada), mas falhou na rodada 5 (utilidade 0.0). Isso sugere que a defesa pode ter se adaptado ou aumentado restrições contra A1. Explorar A2 agora para avaliar se é uma alternativa viável antes de retornar a A1 ou encontrar um padrão.",
+      "estrategia_anterior": "A1",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        }
+      ]
+    },
+    {
+      "rodada": 7,
+      "estrategia": "A2",
+      "motivo": "A1 funcionou em 4 rodadas consecutivas (utilidade 10.0 cada), mas falhou na rodada 5 (utilidade 0.0), sugerindo detecção. A2 foi testada uma vez na rodada 6 e obteve sucesso imediato (utilidade 10.0). Como A1 demonstrou vulnerabilidade após exploração repetida, A2 representa uma alternativa promissora para evitar bloqueio pelo sistema de defesa adversário.",
+      "estrategia_anterior": "A2",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        }
+      ]
+    },
+    {
+      "rodada": 8,
+      "estrategia": "A1",
+      "motivo": "A1 apresentou 4 sucessos em 5 tentativas (80% de taxa de resgate), enquanto A2 mostrou apenas 1 sucesso em 2 tentativas (50%). Apesar do bloqueio na rodada 5, A1 demonstra melhor desempenho geral. O padrão de bloqueios ocasionais em ambas estratégias sugere limite de detecção variável, não falha sistemática de A1. Manter A1 é mais rentável baseado na evidência acumulada.",
+      "estrategia_anterior": "A2",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 7,
+          "ataque": "A2",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        }
+      ]
+    },
+    {
+      "rodada": 9,
+      "estrategia": "A1",
+      "motivo": "A1 apresenta taxa de sucesso de 5/6 (83%) comparada a A2 com 1/2 (50%). Embora A1 tenha falhado na rodada 5, mantém consistência superior. A exploração de A2 nas rodadas 6-7 não melhorou os resultados. Continuar com A1 maximiza utilidade esperada.",
+      "estrategia_anterior": "A1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 7,
+          "ataque": "A2",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        },
+        {
+          "rodada": 8,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        }
+      ]
+    },
+    {
+      "rodada": 10,
+      "estrategia": "A1",
+      "motivo": "A1 apresenta taxa de sucesso de 5 em 7 tentativas (71%), enquanto A2 apresenta 1 em 2 tentativas (50%). Embora A1 tenha falhado nas rodadas 5 e 9, mantém desempenho superior e consistente. A exploração contínua de A1 é justificada pela evidência empírica de maior rendimento acumulado.",
+      "estrategia_anterior": "A1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 7,
+          "ataque": "A2",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        },
+        {
+          "rodada": 8,
+          "ataque": "A1",
+          "cupom_resgatado": true,
+          "utilidade_fraudador": 10.0
+        },
+        {
+          "rodada": 9,
+          "ataque": "A1",
+          "cupom_resgatado": false,
+          "utilidade_fraudador": 0.0
+        }
+      ]
+    }
+  ],
+  "decisoes_defensor": [
+    {
+      "rodada": 1,
+      "estrategia": "B1",
+      "motivo": "Sem histórico de rodadas anteriores, estabeleço B1 como estratégia inicial de referência para observar o comportamento do ambiente e dos ataques, com menor custo operacional.",
+      "estrategia_anterior": null,
+      "mudou_estrategia": false,
+      "observacoes": []
+    },
+    {
+      "rodada": 2,
+      "estrategia": "B2",
+      "motivo": "Na rodada 1, B1 falhou em detectar fraude com ataque A1 (cupom resgatado sem detecção). A utilidade foi -11.0, indicando perda significativa. B2oferece maior capacidade de proteção para evitar que fraudes similares passem novamente, justificando o custo mais alto neste cenário de risco elevado.",
+      "estrategia_anterior": "B1",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        }
+      ]
+    },
+    {
+      "rodada": 3,
+      "estrategia": "B1",
+      "motivo": "Ambas as rodadas resultaram em cupom resgatado sem detecção de fraude. B1 custou 1.0 de utilidade (-11.0 vs baseline), enquanto B2 custou 11.0 (-21.0), com benefício idêntico (zero). Sem evidência de que B2oferece proteção adicional contra A1, seu custo operacional e de fricção elevados não se justificam. Retorno a B1 para manter eficiência até observar padrão de fraudes que exija reforço.",
+      "estrategia_anterior": "B2",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        }
+      ]
+    },
+    {
+      "rodada": 4,
+      "estrategia": "B1",
+      "motivo": "Nas três rodadas observadas, o ataque A1 passou sem ser detectado como fraude, independente da defesa utilizada. B1 apresentou custo de sistema de 1.0 e utilidade de -11.0, enquanto B2 teve custo de 11.0 e utilidade de -21.0. Como B2 não detectou fraude melhor que B1 mas custou significativamente mais, B1 é mais eficiente. Mantendo B1 até observar padrões que justifiquem o custo adicional de B2.",
+      "estrategia_anterior": "B1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        }
+      ]
+    },
+    {
+      "rodada": 5,
+      "estrategia": "B1",
+      "motivo": "B1 demonstra ser mais eficiente que B2 contra o ataque A1 observado. Em todas as rodadas, o cupom foi resgatado sem fraude detectada, independentemente da defesa. B1 mantém custo de -11.0 de utilidade, enquanto B2 custou -21.0 na rodada 2. Os custos maiores de B2 (operacional e fricção) não geraram benefício adicional, apenas reduziram a utilidade. Mantendo B1 para controlar custos.",
+      "estrategia_anterior": "B1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        }
+      ]
+    },
+    {
+      "rodada": 6,
+      "estrategia": "B1",
+      "motivo": "B1 demonstrou melhor custo-benefício: com custos operacionais de 1.0 e sem fricção, gerou utilidade positiva de 9.0 na rodada 5 ao detectar fraude A1. B2 custou 11.0 sem detectar fraude (utilidade -21.0 na rodada 2). Contra A1 repetido, B1 é mais eficiente economicamente e mantém capacidade de detecção adequada.",
+      "estrategia_anterior": "B1",
+      "mudou_estrategia": false,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": 9.0
+        }
+      ]
+    },
+    {
+      "rodada": 7,
+      "estrategia": "B2",
+      "motivo": "Na rodada 6, o ataque mudou para A2 e B1 não detectou a fraude (cupom resgatado, fraude não detectada). B2 mostrou capacidade de detecção na rodada 2 contra A1. Diante de um novo tipo de ataque (A2) que passou despercebido em B1, é prudente escalar para B2 para avaliar se oferece melhor proteção contra esta variação, mesmo com custos maiores.",
+      "estrategia_anterior": "B1",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": 9.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        }
+      ]
+    },
+    {
+      "rodada": 8,
+      "estrategia": "B1",
+      "motivo": "Análise das 7 rodadas mostra que B1 apresenta melhor relação custo-benefício. Com A1 (rodadas 1-5), B1 custou -11 em 4 tentativas mas detectou fraude na rodada 5 (+9). Com A2, B1 falhou uma vez (-11) mas B2 detectou fraude com custo líquido de -1, apenas 10 pontos melhor apesar do custo 11x maior. B1 tem fricção zero e mantém consistência. Sem padrão claro de que B2 justifica seus altos custos operacionais e de fricção, retorno à defesa básica para preservar utilidade acumulada.",
+      "estrategia_anterior": "B2",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": 9.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 7,
+          "ataque": "A2",
+          "defesa": "B2",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": -1.0
+        }
+      ]
+    },
+    {
+      "rodada": 9,
+      "estrategia": "B2",
+      "motivo": "O padrão de observações mostra que A2 não é detectado por B1 (rodada 6), mas é detectado por B2 (rodada 7). Embora B2 tenha custos altos, consegue bloquear fraudes com ganho líquido de -1 versus -11. Com A1 dominante, B1 é eficiente, mas a presença intermitente de A2 justifica usar B2 agora para proteger contra ataques mais sofisticados, mesmo com fricção elevada.",
+      "estrategia_anterior": "B1",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": 9.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 7,
+          "ataque": "A2",
+          "defesa": "B2",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": -1.0
+        },
+        {
+          "rodada": 8,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        }
+      ]
+    },
+    {
+      "rodada": 10,
+      "estrategia": "B1",
+      "motivo": "Análise dos dados mostra que B1 é mais eficiente contra A1 (ataque predominante): com B1 obtém-se detecção ocasional de fraude (rodadas 5, 9) com custo mínimo (-11), enquanto B2 contra A1 custou -21 sem vantagem adicional (rodada 2). Contra A2, B2 detectou fraude mas com utilidade negativa (-1 vs -11 de B1). B1 estabelece melhor relação custo-benefício: mantém custos operacionais baixos (1.0 vs 3.0) e sem fricção, capturando ocasionalmente fraudes. Retornar a B1 após rodada 9 permite avaliar se o padrão de detecção se mantém com menor custo acumulado.",
+      "estrategia_anterior": "B2",
+      "mudou_estrategia": true,
+      "observacoes": [
+        {
+          "rodada": 1,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 2,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -21.0
+        },
+        {
+          "rodada": 3,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 4,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 5,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": 9.0
+        },
+        {
+          "rodada": 6,
+          "ataque": "A2",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 7,
+          "ataque": "A2",
+          "defesa": "B2",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": -1.0
+        },
+        {
+          "rodada": 8,
+          "ataque": "A1",
+          "defesa": "B1",
+          "cupom_resgatado": true,
+          "fraude_detectada": false,
+          "custo_operacional": 1.0,
+          "custo_friccao": 0.0,
+          "custo_sistema": 1.0,
+          "beneficio_defensor": 0.0,
+          "utilidade_defensor": -11.0
+        },
+        {
+          "rodada": 9,
+          "ataque": "A1",
+          "defesa": "B2",
+          "cupom_resgatado": false,
+          "fraude_detectada": true,
+          "custo_operacional": 3.0,
+          "custo_friccao": 8.0,
+          "custo_sistema": 11.0,
+          "beneficio_defensor": 10.0,
+          "utilidade_defensor": -1.0
+        }
+      ]
+    }
+  ],
+  "historico": [
+    {
+      "rodada": 1,
+      "id_cliente": "cliente_001",
+      "ataque": "A1",
+      "defesa": "B1",
+      "resultado": {
+        "cupom_resgatado": true,
+        "fraude_detectada": false,
+        "probabilidade_sucesso": 0.7,
+        "custo_operacional": 1.0,
+        "custo_friccao": 0.0,
+        "custo_sistema": 1.0,
+        "perda_por_fraude": 10.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 10.0,
+        "beneficio_defensor": 0.0,
+        "utilidade_fraudador": 10.0,
+        "utilidade_defensor": -11.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 2,
+      "id_cliente": "cliente_002",
+      "ataque": "A1",
+      "defesa": "B2",
+      "resultado": {
+        "cupom_resgatado": true,
+        "fraude_detectada": false,
+        "probabilidade_sucesso": 0.1,
+        "custo_operacional": 3.0,
+        "custo_friccao": 8.0,
+        "custo_sistema": 11.0,
+        "perda_por_fraude": 10.0,
+        "custo_total_sistema": 21.0,
+        "beneficio_fraudador": 10.0,
+        "beneficio_defensor": 0.0,
+        "utilidade_fraudador": 10.0,
+        "utilidade_defensor": -21.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 3,
+      "id_cliente": "cliente_003",
+      "ataque": "A1",
+      "defesa": "B1",
+      "resultado": {
+        "cupom_resgatado": true,
+        "fraude_detectada": false,
+        "probabilidade_sucesso": 0.7,
+        "custo_operacional": 1.0,
+        "custo_friccao": 0.0,
+        "custo_sistema": 1.0,
+        "perda_por_fraude": 10.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 10.0,
+        "beneficio_defensor": 0.0,
+        "utilidade_fraudador": 10.0,
+        "utilidade_defensor": -11.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 4,
+      "id_cliente": "cliente_004",
+      "ataque": "A1",
+      "defesa": "B1",
+      "resultado": {
+        "cupom_resgatado": true,
+        "fraude_detectada": false,
+        "probabilidade_sucesso": 0.7,
+        "custo_operacional": 1.0,
+        "custo_friccao": 0.0,
+        "custo_sistema": 1.0,
+        "perda_por_fraude": 10.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 10.0,
+        "beneficio_defensor": 0.0,
+        "utilidade_fraudador": 10.0,
+        "utilidade_defensor": -11.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 5,
+      "id_cliente": "cliente_005",
+      "ataque": "A1",
+      "defesa": "B1",
+      "resultado": {
+        "cupom_resgatado": false,
+        "fraude_detectada": true,
+        "probabilidade_sucesso": 0.7,
+        "custo_operacional": 1.0,
+        "custo_friccao": 0.0,
+        "custo_sistema": 1.0,
+        "perda_por_fraude": 0.0,
+        "custo_total_sistema": 1.0,
+        "beneficio_fraudador": 0.0,
+        "beneficio_defensor": 10.0,
+        "utilidade_fraudador": 0.0,
+        "utilidade_defensor": 9.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 6,
+      "id_cliente": "cliente_006",
+      "ataque": "A2",
+      "defesa": "B1",
+      "resultado": {
+        "cupom_resgatado": true,
+        "fraude_detectada": false,
+        "probabilidade_sucesso": 0.8,
+        "custo_operacional": 1.0,
+        "custo_friccao": 0.0,
+        "custo_sistema": 1.0,
+        "perda_por_fraude": 10.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 10.0,
+        "beneficio_defensor": 0.0,
+        "utilidade_fraudador": 10.0,
+        "utilidade_defensor": -11.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 7,
+      "id_cliente": "cliente_007",
+      "ataque": "A2",
+      "defesa": "B2",
+      "resultado": {
+        "cupom_resgatado": false,
+        "fraude_detectada": true,
+        "probabilidade_sucesso": 0.35,
+        "custo_operacional": 3.0,
+        "custo_friccao": 8.0,
+        "custo_sistema": 11.0,
+        "perda_por_fraude": 0.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 0.0,
+        "beneficio_defensor": 10.0,
+        "utilidade_fraudador": 0.0,
+        "utilidade_defensor": -1.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 8,
+      "id_cliente": "cliente_008",
+      "ataque": "A1",
+      "defesa": "B1",
+      "resultado": {
+        "cupom_resgatado": true,
+        "fraude_detectada": false,
+        "probabilidade_sucesso": 0.7,
+        "custo_operacional": 1.0,
+        "custo_friccao": 0.0,
+        "custo_sistema": 1.0,
+        "perda_por_fraude": 10.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 10.0,
+        "beneficio_defensor": 0.0,
+        "utilidade_fraudador": 10.0,
+        "utilidade_defensor": -11.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 9,
+      "id_cliente": "cliente_009",
+      "ataque": "A1",
+      "defesa": "B2",
+      "resultado": {
+        "cupom_resgatado": false,
+        "fraude_detectada": true,
+        "probabilidade_sucesso": 0.1,
+        "custo_operacional": 3.0,
+        "custo_friccao": 8.0,
+        "custo_sistema": 11.0,
+        "perda_por_fraude": 0.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 0.0,
+        "beneficio_defensor": 10.0,
+        "utilidade_fraudador": 0.0,
+        "utilidade_defensor": -1.0,
+        "cupom_ja_utilizado": false
+      }
+    },
+    {
+      "rodada": 10,
+      "id_cliente": "cliente_010",
+      "ataque": "A1",
+      "defesa": "B1",
+      "resultado": {
+        "cupom_resgatado": true,
+        "fraude_detectada": false,
+        "probabilidade_sucesso": 0.7,
+        "custo_operacional": 1.0,
+        "custo_friccao": 0.0,
+        "custo_sistema": 1.0,
+        "perda_por_fraude": 10.0,
+        "custo_total_sistema": 11.0,
+        "beneficio_fraudador": 10.0,
+        "beneficio_defensor": 0.0,
+        "utilidade_fraudador": 10.0,
+        "utilidade_defensor": -11.0,
+        "cupom_ja_utilizado": false
+      }
+    }
+  ]
+}
