@@ -37,6 +37,17 @@ class TestAmbiente(unittest.TestCase):
         with self.assertRaises(ValueError):
             ambiente.processar("A3", "B1")
 
+    def test_nova_conta_nao_colide_com_identificador_manual(self):
+        for seed in (0, 42):  # Tentativa manual bloqueada e bem-sucedida.
+            with self.subTest(seed=seed):
+                ambiente = Ambiente(seed=seed)
+                ambiente.processar("A1", "B1", "cliente_002")
+                resultado = ambiente.processar("A1", "B1")
+
+                ids = [rodada["id_cliente"] for rodada in ambiente.historico]
+                self.assertEqual(len(set(ids)), 2)
+                self.assertFalse(resultado.cupom_ja_utilizado)
+
     def test_reprodutibilidade(self):
         ambiente1 = Ambiente(seed=42)
         ambiente2 = Ambiente(seed=42)
@@ -80,6 +91,23 @@ class TestOrquestrador(unittest.TestCase):
                 total_rodadas=0,
                 exibir=False,
             )
+
+    def test_continuar_ambiente_equivale_a_execucao_unica(self):
+        ambiente = Ambiente(seed=42)
+        fraudador = AgenteTeste("A1")
+        defensor = AgenteTeste("B1")
+        executar_simulacao(ambiente, fraudador, defensor, 3, exibir=False)
+        resumo = executar_simulacao(ambiente, fraudador, defensor, 3, exibir=False)
+
+        referencia = Ambiente(seed=42)
+        resumo_referencia = executar_simulacao(
+            referencia, fraudador, defensor, 6, exibir=False
+        )
+
+        self.assertEqual(ambiente.historico, referencia.historico)
+        self.assertEqual(resumo, resumo_referencia)
+        self.assertEqual(resumo["total_rodadas"], 6)
+        self.assertEqual(len({r["id_cliente"] for r in ambiente.historico}), 6)
 
 
 if __name__ == "__main__":

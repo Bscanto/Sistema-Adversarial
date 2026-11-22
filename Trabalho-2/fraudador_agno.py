@@ -41,6 +41,7 @@ class AgenteFraudadorAgno:
         self.estrategia_atual = None
         self.motivo = "Nenhuma decisão realizada."
         self.decisoes = []
+        self.modelo = modelo or os.getenv("FRAUDADOR_MODEL", "claude-haiku-4-5-20251001")
         if agente is None:
             if not os.environ.get("ANTHROPIC_API_KEY", "").strip():
                 raise ValueError("Defina ANTHROPIC_API_KEY para executar o fraudador com IA.")
@@ -50,7 +51,7 @@ class AgenteFraudadorAgno:
             agente = Agent(
                 name="Fraudador de cupom",
                 model=Claude(
-                    id=modelo or os.getenv("FRAUDADOR_MODEL", "claude-haiku-4-5-20251001"),
+                    id=self.modelo,
                     max_tokens=1024,
                 ),
                 instructions=INSTRUCOES,

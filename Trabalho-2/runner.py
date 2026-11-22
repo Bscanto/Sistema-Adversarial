@@ -145,6 +145,9 @@ def executar_simulacao(
     3. Ambiente executa a interação.
     4. Resultado é registrado.
     5. Próxima rodada utiliza o histórico atualizado.
+
+    Reutilizar o ambiente acrescenta rodadas com novas contas.
+    O resumo inclui todo o histórico acumulado do ambiente.
     """
 
     if total_rodadas < 1:
@@ -153,7 +156,9 @@ def executar_simulacao(
     if exibir:
         print("=== SISTEMA ADVERSARIAL ===")
 
-    for rodada in range(1, total_rodadas + 1):
+    for _ in range(total_rodadas):
+
+        rodada = len(ambiente.historico) + 1
 
         # Os dois agentes recebem o histórico anterior à rodada.
         historico = ambiente.historico
@@ -166,7 +171,6 @@ def executar_simulacao(
         resultado = ambiente.processar(
             ataque=ataque,
             defesa=defesa,
-            id_cliente=f"cliente_{rodada:03d}",
         )
 
         if exibir:

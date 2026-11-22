@@ -82,7 +82,14 @@ class Ambiente:
 
         # Se não houver identificador, considera uma nova conta
         if id_cliente is None:
-            id_cliente = f"cliente_{len(self.historico) + 1:03d}"
+            ids_existentes = {rodada["id_cliente"] for rodada in self.historico}
+            numero_cliente = len(self.historico) + 1
+            id_cliente = f"cliente_{numero_cliente:03d}"
+            # Identificadores informados manualmente também ficam reservados,
+            # mesmo quando a tentativa anterior não resgatou o cupom.
+            while id_cliente in ids_existentes:
+                numero_cliente += 1
+                id_cliente = f"cliente_{numero_cliente:03d}"
 
         if not id_cliente.strip():
             raise ValueError("O identificador do cliente não pode ser vazio.")

@@ -87,6 +87,7 @@ class AgenteDefensorAgno:
         self.estrategia_atual = None
         self.motivo = "Nenhuma decisão realizada."
         self.decisoes = []
+        self.modelo = modelo or os.getenv("DEFENSOR_MODEL", "claude-haiku-4-5-20251001")
 
         if agente is None:
 
@@ -102,10 +103,7 @@ class AgenteDefensorAgno:
             agente = Agent(
                 name="Defensor de cupom",
                 model=Claude(
-                    id=modelo or os.getenv(
-                        "DEFENSOR_MODEL",
-                        "claude-haiku-4-5-20251001"
-                    ),
+                    id=self.modelo,
                     max_tokens=1024,
                 ),
                 instructions=INSTRUCOES,
