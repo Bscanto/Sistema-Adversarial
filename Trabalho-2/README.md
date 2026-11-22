@@ -237,8 +237,18 @@ Esses testes não comprovam a adaptação de um LLM real nem a disponibilidade d
 
 A2 pode se estabilizar por ser dominante. O histórico completo cresce a cada rodada e é reenviado ao modelo; o protótipo destina-se a execuções curtas. Falhas de API não são substituídas silenciosamente por decisões baseadas em regras.
 
+## Demonstração e testes de integração
+
+A integração entre os agentes Fraudador e Defensor é demonstrada pelo arquivo `demo_agentes.py`, que executa a interação adversarial utilizando os modelos de IA e o ambiente de simulação.
+
+O arquivo `test_demo_agentes.py` contém testes automatizados voltados à validação da demonstração e da integração entre seus componentes.
+
+Esses testes complementam a validação do sistema, enquanto a execução real com os modelos de IA permite observar as estratégias escolhidas, as justificativas apresentadas e o comportamento dos agentes ao longo das rodadas.
+
 ## Próximos passos
 
 1. **Realizar experimentos com a API:** comparar regras, IA contra regras e IA contra IA em diferentes seeds e execuções.
 2. **Analisar sensibilidade:** avaliar como custos de ataque, fricção e probabilidades mudam as melhores respostas, em experimentos explicitamente separados do modelo atual.
 3. **Organizar a entrega:** selecionar evidências, registrar limitações e preparar a demonstração para apresentação.
+
+
